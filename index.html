@@ -1238,9 +1238,22 @@ async function updateUserCompany(userId,company){
   showToast('Empresa actualizada','success');
 }
 async function deleteUser(userId,name){
-  if(!confirm(`¿Eliminar a ${name}?`))return;
-  await db.from('profiles').delete().eq('id',userId);
-  showToast('Usuario eliminado','success');loadUsers();
+  if(!confirm(`¿Eliminar a ${name}? Esta acción no se puede deshacer.`))return;
+  // Delete from auth.users via Admin API (cascades to profiles automatically)
+  const res = await fetch(`${SUPA_URL}/auth/v1/admin/users/${userId}`,{
+    method:'DELETE',
+    headers:{
+      'apikey': SUPA_SVC,
+      'Authorization': `Bearer ${SUPA_SVC}`,
+    }
+  });
+  if(!res.ok){
+    const json = await res.json().catch(()=>({}));
+    showToast(json.message||'Error al eliminar usuario','error');
+    return;
+  }
+  showToast(`${name} eliminado`,'success');
+  loadUsers();
 }
 function openCreateUser(){document.getElementById('modal-create-user').style.display='flex';}
 function closeCreateUser(){
