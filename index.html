@@ -865,20 +865,21 @@ function showApp() {
   const app = document.getElementById('app');
   app.style.display = 'flex';
 
-  // sidebar user
   const name = currentProfile?.full_name || currentUser.email.split('@')[0];
   const role = currentProfile?.role || 'client';
+
   document.getElementById('sb-name').textContent = name;
   document.getElementById('sb-role').textContent = roleLabel(role);
   document.getElementById('sb-avatar').textContent = name.charAt(0).toUpperCase();
 
-  // role-based UI
+  // reset
+  document.getElementById('new-ticket-btn').style.display = 'none';
+  document.getElementById('admin-nav').style.display = 'none';
+
   if (role === 'client') {
     document.getElementById('new-ticket-btn').style.display = 'flex';
-  }
-  if (role === 'admin') {
+  } else if (role === 'admin' || role === 'operator') {
     document.getElementById('admin-nav').style.display = 'block';
-    document.getElementById('new-ticket-btn').style.display = 'none';
   }
 
   loadTickets();
@@ -886,7 +887,8 @@ function showApp() {
 }
 
 function roleLabel(r) {
-  return { client:'Cliente · TOUS', admin:'Administrador', operator:'Operador' }[r] || r;
+  const labels = { client: 'Cliente · ' + (currentProfile?.company || 'TOUS'), admin: 'Administrador · Secavi', operator: 'Operador · Secavi' };
+  return labels[r] || r;
 }
 
 // ══════════════════════════════════════════════
