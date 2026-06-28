@@ -7,39 +7,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-:root {
-  --bg:       #07090C;
-  --s1:       #0D1017;
-  --s2:       #131720;
-  --s3:       #191E2A;
-  --border:   #1C2235;
-  --border2:  #252C40;
-  --red:      #C91C1C;
-  --red-dim:  #7A1111;
-  --red-glow: rgba(201,28,28,0.10);
-  --red-glow2:rgba(201,28,28,0.06);
-  --text:     #EEF0F5;
-  --tdim:     #6E7A96;
-  --tmuted:   #3A4259;
-  --green:    #2EA865;
-  --blue:     #3D78E0;
-  --orange:   #CF7020;
-  --yellow:   #C9A020;
-  --r:        10px;
-  --sw:       240px;
-}
-
+:root{--bg:#07090C;--s1:#0D1017;--s2:#131720;--s3:#191E2A;--border:#1C2235;--border2:#252C40;--red:#C91C1C;--red-dim:#7A1111;--red-glow:rgba(201,28,28,0.10);--red-glow2:rgba(201,28,28,0.06);--text:#EEF0F5;--tdim:#6E7A96;--tmuted:#3A4259;--green:#2EA865;--blue:#3D78E0;--orange:#CF7020;--yellow:#C9A020;--r:10px;--sw:240px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
 
-/* ─── SCROLLBAR ─── */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
-
-/* ─── AUTH ─── */
+/* AUTH */
 #auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 25%,rgba(201,28,28,0.09) 0%,transparent 60%)}
 .auth-wrap{width:380px;display:flex;flex-direction:column;gap:32px;align-items:center}
 .auth-logo-block{display:flex;flex-direction:column;align-items:center;gap:10px}
@@ -47,9 +20,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .auth-brand{font-size:28px;font-weight:800;letter-spacing:.2em;color:var(--text)}
 .auth-sub{font-size:11px;color:var(--tdim);letter-spacing:.1em;text-transform:uppercase}
 .auth-box{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:36px;width:100%;display:flex;flex-direction:column;gap:20px}
-.auth-box h2{font-size:15px;font-weight:600;color:var(--text)}
+.auth-box h2{font-size:15px;font-weight:600}
 
-/* ─── FIELDS ─── */
+/* FIELDS */
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:11px;color:var(--tdim);letter-spacing:.04em;text-transform:uppercase;font-weight:500}
 .field input,.field select,.field textarea{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-family:inherit;font-size:13px;padding:10px 14px;outline:none;transition:border-color .15s;width:100%}
@@ -57,35 +30,29 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .field textarea{resize:vertical;min-height:90px;line-height:1.5}
 .field select option{background:var(--s2)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 
-/* ─── BUTTONS ─── */
-.btn{padding:10px 18px;border-radius:var(--r);font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:7px}
-.btn-red{background:var(--red);color:#fff}
-.btn-red:hover{background:#a81515}
+/* BUTTONS */
+.btn{padding:10px 18px;border-radius:var(--r);font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:#a81515}
 .btn-full{width:100%;justify-content:center}
-.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--tdim)}
-.btn-ghost:hover{border-color:var(--red);color:var(--text)}
-.btn-danger{background:rgba(201,28,28,.15);border:1px solid var(--red-dim);color:#e05555}
-.btn-danger:hover{background:rgba(201,28,28,.25)}
-.btn-sm{padding:6px 14px;font-size:12px}
-.btn-xs{padding:4px 10px;font-size:11px}
-
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--tdim)}.btn-ghost:hover{border-color:var(--red);color:var(--text)}
+.btn-green{background:rgba(46,168,101,.15);border:1px solid #1e7a4e;color:#3dbc78}.btn-green:hover{background:rgba(46,168,101,.25)}
+.btn-danger{background:rgba(201,28,28,.12);border:1px solid var(--red-dim);color:#e05555}.btn-danger:hover{background:rgba(201,28,28,.25)}
+.btn-sm{padding:6px 14px;font-size:12px}.btn-xs{padding:4px 10px;font-size:11px}
 .err{color:#e05555;font-size:12px}
 
-/* ─── LAYOUT ─── */
+/* LAYOUT */
 #app{display:none;height:100vh;flex-direction:row}
-
-/* SIDEBAR */
 .sidebar{width:var(--sw);background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .sb-logo{padding:22px 18px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
 .sb-brand{font-size:15px;font-weight:800;letter-spacing:.14em;color:var(--text)}
 .sb-sub{font-size:9px;color:var(--tmuted);letter-spacing:.07em;text-transform:uppercase;margin-top:1px}
 .sb-section{padding:14px 10px 6px}
 .sb-label{font-size:10px;color:var(--tmuted);letter-spacing:.08em;text-transform:uppercase;padding:0 8px;margin-bottom:6px;font-weight:500}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;color:var(--tdim);font-size:13px;font-weight:400;transition:all .12s;position:relative;user-select:none}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;color:var(--tdim);font-size:13px;font-weight:400;transition:all .12s;border:1px solid transparent;user-select:none}
 .nav-item:hover{background:var(--s2);color:var(--text)}
-.nav-item.active{background:var(--red-glow);color:var(--red);font-weight:500;border:1px solid rgba(201,28,28,.15)}
-.nav-item:not(.active){border:1px solid transparent}
+.nav-item.active{background:var(--red-glow);color:var(--red);font-weight:500;border-color:rgba(201,28,28,.15)}
 .nav-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
 .nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;min-width:18px;text-align:center}
 .sb-user{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
@@ -99,14 +66,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{background:var(--s1);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:56px;flex-shrink:0}
-.topbar h1{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px}
+.topbar h1{font-size:16px;font-weight:600}
 .content{flex:1;overflow-y:auto;padding:24px 28px}
+.panel{display:none}.panel.active{display:block}
 
-/* ─── PANELS ─── */
-.panel{display:none}
-.panel.active{display:block}
-
-/* ─── BADGES ─── */
+/* BADGES */
 .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
 .badge::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .b-nueva{background:rgba(61,120,224,.12);color:#5b8def}.b-nueva::before{background:#5b8def}
@@ -114,47 +78,41 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .b-proceso{background:rgba(201,160,32,.12);color:#d4a832}.b-proceso::before{background:#d4a832}
 .b-resuelta{background:rgba(46,168,101,.12);color:#3dbc78}.b-resuelta::before{background:#3dbc78}
 .b-cancelada{background:rgba(201,28,28,.12);color:#e05555}.b-cancelada::before{background:#e05555}
-
-/* ─── PRIORITY ─── */
-.pdot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
-.p-alta{background:#e05555}
-.p-media{background:#d4a832}
-.p-baja{background:#3dbc78}
 .ptag-alta{background:rgba(224,85,85,.12);color:#e05555;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500}
 .ptag-media{background:rgba(212,168,50,.12);color:#d4a832;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500}
 .ptag-baja{background:rgba(61,188,120,.12);color:#3dbc78;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500}
 
-/* ─── CARDS ─── */
+/* CARDS */
 .card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px}
 .card-title{font-size:11px;color:var(--tmuted);text-transform:uppercase;letter-spacing:.07em;font-weight:500;margin-bottom:14px}
 
-/* ─── FILTERS ─── */
+/* FILTERS */
 .filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
 .fchip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);color:var(--tdim);background:transparent;font-family:inherit;transition:all .12s}
 .fchip:hover{border-color:var(--border2);color:var(--text)}
 .fchip.active{background:var(--red-glow);border-color:rgba(201,28,28,.4);color:var(--red)}
-.search-box{background:var(--s1);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:13px;padding:7px 14px;outline:none;width:220px;margin-left:auto}
+.search-box{background:var(--s1);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:13px;padding:7px 14px;outline:none;width:200px;margin-left:auto}
 .search-box:focus{border-color:var(--red)}
-.filter-area-select{background:var(--s1);border:1px solid var(--border);border-radius:8px;color:var(--tdim);font-family:inherit;font-size:12px;padding:7px 12px;outline:none;cursor:pointer}
-.filter-area-select:focus{border-color:var(--red)}
+.fselect{background:var(--s1);border:1px solid var(--border);border-radius:8px;color:var(--tdim);font-family:inherit;font-size:12px;padding:7px 12px;outline:none;cursor:pointer}
+.fselect:focus{border-color:var(--red)}
 
-/* ─── TABLE ─── */
+/* TABLE */
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{text-align:left;font-size:10px;font-weight:600;color:var(--tmuted);letter-spacing:.07em;text-transform:uppercase;padding:10px 16px;border-bottom:1px solid var(--border)}
-.tbl td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+.tbl td{padding:13px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
 .tbl tr:last-child td{border-bottom:none}
 .tbl tbody tr:hover td{background:var(--s2);cursor:pointer}
 .tid{font-weight:700;color:var(--red);font-size:11px;letter-spacing:.04em}
 .ttitle{font-weight:500;color:var(--text)}
 .tmeta{font-size:11px;color:var(--tdim);margin-top:2px}
 
-/* ─── EMPTY ─── */
+/* EMPTY */
 .empty{text-align:center;padding:60px 20px;color:var(--tmuted)}
 .empty .eicon{font-size:42px;margin-bottom:14px;opacity:.6}
 .empty p{font-size:13px}
 
-/* ─── MODAL ─── */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
 .modal{background:var(--s1);border:1px solid var(--border);border-radius:14px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column}
 .modal-hdr{padding:22px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-shrink:0}
 .modal-hdr h3{font-size:16px;font-weight:600}
@@ -163,7 +121,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .modal-body{padding:24px;display:flex;flex-direction:column;gap:16px}
 .modal-foot{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;flex-shrink:0}
 
-/* ─── DETAIL ─── */
+/* DETAIL */
 .detail-header{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:18px}
 .d-id{font-size:11px;color:var(--red);font-weight:700;letter-spacing:.06em;margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .d-title{font-size:21px;font-weight:700;margin-bottom:16px;line-height:1.3}
@@ -174,21 +132,21 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .detail-grid{display:grid;grid-template-columns:1fr 280px;gap:18px}
 @media(max-width:820px){.detail-grid{grid-template-columns:1fr}}
 
-/* PROGRESS BAR (cliente) */
-.progress-track{display:flex;align-items:center;margin:8px 0 4px}
+/* PROGRESS */
+.progress-track{display:flex;align-items:flex-start;margin:8px 0 4px}
 .pstep{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
 .pstep:not(:last-child)::after{content:'';position:absolute;top:11px;left:50%;width:100%;height:2px;background:var(--border2);z-index:0}
 .pstep.done:not(:last-child)::after{background:var(--red)}
-.pdot-track{width:22px;height:22px;border-radius:50%;border:2px solid var(--border2);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:10px;z-index:1;position:relative;transition:all .3s}
+.pdot-track{width:22px;height:22px;border-radius:50%;border:2px solid var(--border2);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:10px;z-index:1;position:relative;transition:all .3s;font-weight:700}
 .pstep.done .pdot-track{border-color:var(--red);background:var(--red);color:#fff}
 .pstep.current .pdot-track{border-color:var(--red);background:var(--red-glow);color:var(--red)}
-.pstep-label{font-size:10px;color:var(--tmuted);margin-top:6px;text-align:center;white-space:nowrap}
+.pstep-label{font-size:10px;color:var(--tmuted);margin-top:6px;text-align:center}
 .pstep.done .pstep-label{color:var(--red)}
 .pstep.current .pstep-label{color:var(--text);font-weight:500}
 
 /* COMMENTS */
-.comments{display:flex;flex-direction:column;gap:10px}
-.cmsg{border-radius:10px;padding:12px 14px;max-width:85%}
+.comments{display:flex;flex-direction:column;gap:8px}
+.cmsg{border-radius:10px;padding:11px 14px;max-width:85%}
 .cmsg.from-client{background:var(--s3);border:1px solid var(--border2);align-self:flex-start}
 .cmsg.from-secavi{background:var(--red-glow);border:1px solid rgba(201,28,28,.2);align-self:flex-end}
 .cmsg-author{font-size:10px;font-weight:700;margin-bottom:4px;letter-spacing:.03em}
@@ -196,14 +154,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .cmsg.from-secavi .cmsg-author{color:var(--red)}
 .cmsg-text{font-size:13px;color:var(--text);line-height:1.5}
 .cmsg-time{font-size:10px;color:var(--tmuted);margin-top:4px}
-.comment-wrap{display:flex;flex-direction:column;gap:0}
 .comment-input-row{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
 .comment-input-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:13px;padding:9px 14px;outline:none}
 .comment-input-row input:focus{border-color:var(--red)}
 
 /* TIMELINE */
 .timeline{display:flex;flex-direction:column;gap:0}
-.tl-item{display:flex;gap:12px;padding-bottom:18px;position:relative}
+.tl-item{display:flex;gap:12px;padding-bottom:16px}
 .tl-item:last-child{padding-bottom:0}
 .tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
 .tl-dot{width:10px;height:10px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:3px}
@@ -220,14 +177,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .sstep-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
 /* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:24px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:14px;margin-bottom:24px}
 .stat-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px}
 .stat-num{font-size:32px;font-weight:800;line-height:1;margin-bottom:4px}
 .stat-lbl{font-size:11px;color:var(--tmuted);text-transform:uppercase;letter-spacing:.05em}
 .bar-row{margin-bottom:14px}
 .bar-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px}
 .bar-bg{height:5px;background:var(--border2);border-radius:3px}
-.bar-fill{height:5px;background:var(--red);border-radius:3px;transition:width .6s ease}
+.bar-fill{height:5px;background:var(--red);border-radius:3px;transition:width .6s}
 
 /* NOTIFICATIONS */
 .notif-item{padding:15px 20px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;cursor:pointer;transition:background .1s}
@@ -235,32 +192,47 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .notif-item.unread{background:var(--red-glow2)}
 .notif-undot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:5px}
 .notif-undot.read{background:transparent}
-.notif-title{font-size:13px;font-weight:500;color:var(--text)}
-.notif-body{font-size:12px;color:var(--tdim);margin-top:2px;line-height:1.4}
-.notif-time{font-size:11px;color:var(--tmuted);margin-top:4px}
 
-/* CLIENT PORTAL */
-.client-hero{background:linear-gradient(135deg,var(--s1) 0%,var(--s2) 100%);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.client-hero-text h2{font-size:20px;font-weight:700;margin-bottom:6px}
-.client-hero-text p{font-size:13px;color:var(--tdim);line-height:1.5}
-.client-stats{display:flex;gap:20px;flex-wrap:wrap}
+/* CLIENT HERO */
+.client-hero{background:linear-gradient(135deg,var(--s1) 0%,var(--s2) 100%);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.client-hero h2{font-size:20px;font-weight:700;margin-bottom:6px}
+.client-hero p{font-size:13px;color:var(--tdim);line-height:1.5}
 .cstat{text-align:center;padding:14px 20px;background:var(--bg);border:1px solid var(--border);border-radius:10px}
 .cstat-num{font-size:24px;font-weight:800;color:var(--red)}
 .cstat-lbl{font-size:10px;color:var(--tmuted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
 
+/* ATTACHMENTS */
+.attach-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.attach-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--s2);border:1px solid var(--border2);border-radius:8px}
+.attach-icon{font-size:18px;flex-shrink:0}
+.attach-name{font-size:12px;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.attach-size{font-size:11px;color:var(--tmuted);flex-shrink:0}
+.attach-del{background:none;border:none;color:var(--tmuted);cursor:pointer;font-size:14px;padding:2px 6px;border-radius:4px;flex-shrink:0}
+.attach-del:hover{color:#e05555}
+.upload-zone{border:2px dashed var(--border2);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--red);background:var(--red-glow2)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-zone p{font-size:13px;color:var(--tdim);margin-top:6px}
+
+/* USERS PANEL */
+.user-row{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border);transition:background .1s}
+.user-row:hover{background:var(--s2)}
+.user-row:last-child{border-bottom:none}
+.user-row-avatar{width:36px;height:36px;border-radius:50%;background:var(--red-glow);border:1px solid var(--red-dim);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--red);flex-shrink:0}
+.role-select{background:var(--s2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:inherit;font-size:12px;padding:4px 8px;outline:none;cursor:pointer}
+.role-select:focus{border-color:var(--red)}
+
 /* TOAST */
-#toast{position:fixed;bottom:24px;right:24px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:200;transform:translateY(80px);opacity:0;transition:all .25s;max-width:300px;display:flex;align-items:center;gap:10px}
+#toast{position:fixed;bottom:24px;right:24px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:13px 18px;font-size:13px;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:200;transform:translateY(80px);opacity:0;transition:all .25s;max-width:300px;display:flex;align-items:center;gap:10px}
 #toast.show{transform:translateY(0);opacity:1}
 #toast.success{border-color:var(--green)}
 #toast.error{border-color:#e05555}
 
-/* LOADING */
 .spinner{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-screen{display:flex;align-items:center;justify-content:center;height:200px;color:var(--tdim);gap:12px;font-size:13px}
-
-.divider{height:1px;background:var(--border);margin:4px 0}
 .tag{display:inline-flex;align-items:center;gap:5px;background:var(--s3);border:1px solid var(--border2);border-radius:6px;padding:3px 10px;font-size:12px;color:var(--tdim)}
+.divider{height:1px;background:var(--border);margin:8px 0}
 </style>
 </head>
 <body>
@@ -269,7 +241,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 <div id="auth-screen">
   <div class="auth-wrap">
     <div class="auth-logo-block">
-      <svg class="auth-snake" width="72" height="72" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="auth-snake" width="72" height="72" viewBox="0 0 100 100" fill="none">
         <circle cx="50" cy="50" r="46" stroke="#C91C1C" stroke-width="3" fill="none"/>
         <circle cx="50" cy="50" r="40" stroke="#7A1111" stroke-width="1" fill="none" opacity=".5"/>
         <path d="M50 16 C26 16 16 34 18 50 C20 67 36 74 50 72 C65 70 74 58 70 44 C66 30 54 26 44 32 C36 37 34 49 41 56 C46 61 56 60 60 53" stroke="#C91C1C" stroke-width="5.5" stroke-linecap="round" fill="none"/>
@@ -281,14 +253,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
     </div>
     <div class="auth-box">
       <h2>Iniciar sesión</h2>
-      <div class="field">
-        <label>Correo electrónico</label>
-        <input type="email" id="auth-email" placeholder="correo@empresa.com" autocomplete="email">
-      </div>
-      <div class="field">
-        <label>Contraseña</label>
-        <input type="password" id="auth-pass" placeholder="••••••••" autocomplete="current-password">
-      </div>
+      <div class="field"><label>Correo electrónico</label><input type="email" id="auth-email" placeholder="correo@empresa.com" autocomplete="email"></div>
+      <div class="field"><label>Contraseña</label><input type="password" id="auth-pass" placeholder="••••••••" autocomplete="current-password"></div>
       <div id="auth-err" class="err" style="display:none"></div>
       <button class="btn btn-red btn-full" id="auth-btn">Entrar</button>
     </div>
@@ -305,40 +271,21 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
         <circle cx="63" cy="26" r="4.5" fill="#C91C1C"/>
         <circle cx="65" cy="24" r="1.8" fill="#EEF0F5"/>
       </svg>
-      <div>
-        <div class="sb-brand">SECAVI</div>
-        <div class="sb-sub">Seguridad Privada</div>
-      </div>
+      <div><div class="sb-brand">SECAVI</div><div class="sb-sub">Seguridad Privada</div></div>
     </div>
-
     <div class="sb-section">
       <div class="sb-label">General</div>
-      <div class="nav-item active" data-panel="tickets" onclick="navTo('tickets')">
-        <span class="nav-icon">📋</span> Solicitudes
-        <span class="nav-badge" id="badge-pend" style="display:none">0</span>
-      </div>
-      <div class="nav-item" data-panel="notifications" onclick="navTo('notifications')">
-        <span class="nav-icon">🔔</span> Notificaciones
-        <span class="nav-badge" id="badge-notif" style="display:none">0</span>
-      </div>
+      <div class="nav-item active" data-panel="tickets" onclick="navTo('tickets')"><span class="nav-icon">📋</span> Solicitudes<span class="nav-badge" id="badge-pend" style="display:none">0</span></div>
+      <div class="nav-item" data-panel="notifications" onclick="navTo('notifications')"><span class="nav-icon">🔔</span> Notificaciones<span class="nav-badge" id="badge-notif" style="display:none">0</span></div>
     </div>
-
     <div class="sb-section" id="admin-nav" style="display:none">
       <div class="sb-label">Administración</div>
-      <div class="nav-item" data-panel="stats" onclick="navTo('stats')">
-        <span class="nav-icon">📊</span> Estadísticas
-      </div>
-      <div class="nav-item" data-panel="users" onclick="navTo('users')">
-        <span class="nav-icon">👥</span> Usuarios
-      </div>
+      <div class="nav-item" data-panel="stats" onclick="navTo('stats')"><span class="nav-icon">📊</span> Estadísticas</div>
+      <div class="nav-item" data-panel="users" onclick="navTo('users')"><span class="nav-icon">👥</span> Usuarios</div>
     </div>
-
     <div class="sb-user">
       <div class="u-avatar" id="sb-avatar">—</div>
-      <div class="u-info">
-        <div class="u-name" id="sb-name">—</div>
-        <div class="u-role" id="sb-role">—</div>
-      </div>
+      <div class="u-info"><div class="u-name" id="sb-name">—</div><div class="u-role" id="sb-role">—</div></div>
       <button class="logout-btn" onclick="logout()" title="Cerrar sesión">⏻</button>
     </div>
   </aside>
@@ -350,19 +297,16 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
         <button class="btn btn-red btn-sm" id="new-ticket-btn" onclick="openNewTicket()" style="display:none">＋ Nueva solicitud</button>
       </div>
     </div>
-
     <div class="content">
-
-      <!-- TICKETS -->
       <div class="panel active" id="panel-tickets">
         <div id="client-hero-wrap"></div>
-        <div class="filters" id="filters-row">
+        <div class="filters">
           <button class="fchip active" onclick="filterStatus('all',this)">Todas</button>
           <button class="fchip" onclick="filterStatus('nueva',this)">Nuevas</button>
           <button class="fchip" onclick="filterStatus('en_revision',this)">En revisión</button>
           <button class="fchip" onclick="filterStatus('en_proceso',this)">En proceso</button>
           <button class="fchip" onclick="filterStatus('resuelta',this)">Resueltas</button>
-          <select class="filter-area-select" id="filter-area" onchange="renderTickets()" style="display:none">
+          <select class="fselect" id="filter-area" onchange="renderTickets()" style="display:none">
             <option value="">Todas las áreas</option>
             <option value="mantenimiento">Mantenimiento</option>
             <option value="videovigilancia">Videovigilancia</option>
@@ -375,27 +319,22 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
         <div id="tickets-wrap"><div class="loading-screen"><span class="spinner"></span> Cargando…</div></div>
       </div>
 
-      <!-- DETAIL -->
       <div class="panel" id="panel-detail">
         <button class="btn btn-ghost btn-sm" onclick="navTo('tickets')" style="margin-bottom:18px">← Volver</button>
         <div id="detail-wrap"></div>
       </div>
 
-      <!-- NOTIFICATIONS -->
       <div class="panel" id="panel-notifications">
         <div id="notif-wrap"><div class="loading-screen"><span class="spinner"></span> Cargando…</div></div>
       </div>
 
-      <!-- STATS -->
       <div class="panel" id="panel-stats">
         <div id="stats-wrap"><div class="loading-screen"><span class="spinner"></span> Cargando…</div></div>
       </div>
 
-      <!-- USERS -->
       <div class="panel" id="panel-users">
         <div id="users-wrap"><div class="loading-screen"><span class="spinner"></span> Cargando…</div></div>
       </div>
-
     </div>
   </div>
 </div>
@@ -403,13 +342,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 <!-- MODAL: New Ticket -->
 <div class="overlay" id="modal-new" style="display:none" onclick="if(event.target===this)closeNewTicket()">
   <div class="modal">
-    <div class="modal-hdr">
-      <h3>Nueva Solicitud</h3>
-      <button class="mclose" onclick="closeNewTicket()">×</button>
-    </div>
+    <div class="modal-hdr"><h3>Nueva Solicitud</h3><button class="mclose" onclick="closeNewTicket()">×</button></div>
     <div class="modal-body">
-      <div class="field">
-        <label>Tipo de servicio *</label>
+      <div class="field"><label>Tipo de servicio *</label>
         <select id="nt-tipo">
           <option value="">Selecciona el tipo…</option>
           <option value="mantenimiento_preventivo">🔧 Mantenimiento preventivo de tienda</option>
@@ -420,43 +355,33 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
           <option value="suministro_equipos">📦 Suministro de equipos adicionales</option>
         </select>
       </div>
-      <div class="field">
-        <label>Título / Asunto *</label>
-        <input type="text" id="nt-titulo" placeholder="Ej. Cámara fuera de servicio en entrada principal">
-      </div>
+      <div class="field"><label>Título / Asunto *</label><input type="text" id="nt-titulo" placeholder="Ej. Cámara fuera de servicio en entrada principal"></div>
       <div class="form-row">
-        <div class="field">
-          <label>Tienda / Ubicación *</label>
-          <input type="text" id="nt-ubicacion" placeholder="Ej. TOUS Antara">
+        <div class="field"><label>Tienda / Ubicación *</label><input type="text" id="nt-ubicacion" placeholder="Ej. TOUS Antara"></div>
+        <div class="field"><label>Prioridad</label>
+          <select id="nt-prioridad"><option value="baja">🟢 Baja</option><option value="media" selected>🟡 Media</option><option value="alta">🔴 Alta — Urgente</option></select>
         </div>
-        <div class="field">
-          <label>Prioridad</label>
-          <select id="nt-prioridad">
-            <option value="baja">🟢 Baja</option>
-            <option value="media" selected>🟡 Media</option>
-            <option value="alta">🔴 Alta — Urgente</option>
-          </select>
-        </div>
+      </div>
+      <div class="field"><label>Descripción detallada *</label><textarea id="nt-descripcion" placeholder="Describe el problema, equipo afectado, número de serie, horario disponible, etc."></textarea></div>
+      <div class="form-row">
+        <div class="field"><label>Fecha requerida</label><input type="date" id="nt-fecha"></div>
+        <div class="field"><label>Equipos afectados</label><input type="number" id="nt-cantidad" placeholder="Ej. 3" min="1"></div>
       </div>
       <div class="field">
-        <label>Descripción detallada *</label>
-        <textarea id="nt-descripcion" placeholder="Describe el problema, equipo afectado, número de serie, horario disponible, etc."></textarea>
-      </div>
-      <div class="form-row">
-        <div class="field">
-          <label>Fecha requerida (si aplica)</label>
-          <input type="date" id="nt-fecha">
+        <label>Archivos adjuntos (fotos, documentos)</label>
+        <div class="upload-zone" id="upload-zone-new">
+          <input type="file" id="nt-files" multiple accept="image/*,.pdf,.doc,.docx" onchange="previewFiles(this,'new-file-preview')">
+          <div style="font-size:24px;margin-bottom:6px">📎</div>
+          <p>Arrastra archivos aquí o haz clic para seleccionar</p>
+          <p style="font-size:11px;color:var(--tmuted);margin-top:4px">Imágenes, PDF, Word — máx. 10MB por archivo</p>
         </div>
-        <div class="field">
-          <label>Número de equipos afectados</label>
-          <input type="number" id="nt-cantidad" placeholder="Ej. 3" min="1">
-        </div>
+        <div id="new-file-preview" class="attach-list" style="margin-top:8px"></div>
       </div>
       <div id="nt-err" class="err" style="display:none"></div>
     </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="closeNewTicket()">Cancelar</button>
-      <button class="btn btn-red" onclick="submitTicket()">Enviar solicitud</button>
+      <button class="btn btn-red" id="nt-submit-btn" onclick="submitTicket()">Enviar solicitud</button>
     </div>
   </div>
 </div>
@@ -464,13 +389,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 <!-- MODAL: Assign -->
 <div class="overlay" id="modal-assign" style="display:none" onclick="if(event.target===this)closeAssign()">
   <div class="modal" style="max-width:440px">
-    <div class="modal-hdr">
-      <h3>Asignar solicitud</h3>
-      <button class="mclose" onclick="closeAssign()">×</button>
-    </div>
+    <div class="modal-hdr"><h3>Asignar solicitud</h3><button class="mclose" onclick="closeAssign()">×</button></div>
     <div class="modal-body">
-      <div class="field">
-        <label>Área responsable *</label>
+      <div class="field"><label>Área responsable *</label>
         <select id="assign-area">
           <option value="">Selecciona área…</option>
           <option value="mantenimiento">🔧 Mantenimiento</option>
@@ -480,18 +401,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
           <option value="suministros">📦 Suministros</option>
         </select>
       </div>
-      <div class="field">
-        <label>Asignar a (nombre del responsable)</label>
-        <input type="text" id="assign-to" placeholder="Nombre completo">
-      </div>
-      <div class="field">
-        <label>Fecha estimada de resolución</label>
-        <input type="date" id="assign-eta">
-      </div>
-      <div class="field">
-        <label>Nota interna para el área</label>
-        <textarea id="assign-note" placeholder="Instrucciones, detalles técnicos, accesos…" style="min-height:70px"></textarea>
-      </div>
+      <div class="field"><label>Asignar a (nombre del responsable)</label><input type="text" id="assign-to" placeholder="Nombre completo"></div>
+      <div class="field"><label>Fecha estimada de resolución (ETA)</label><input type="date" id="assign-eta"></div>
+      <div class="field"><label>Nota interna para el área</label><textarea id="assign-note" placeholder="Instrucciones, detalles técnicos, accesos necesarios…" style="min-height:70px"></textarea></div>
       <div id="assign-err" class="err" style="display:none"></div>
     </div>
     <div class="modal-foot">
@@ -501,22 +413,61 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
   </div>
 </div>
 
-<!-- MODAL: Close Ticket -->
-<div class="overlay" id="modal-close-ticket" style="display:none" onclick="if(event.target===this)closeCloseModal()">
+<!-- MODAL: Resolve -->
+<div class="overlay" id="modal-resolve" style="display:none" onclick="if(event.target===this)closeResolve()">
   <div class="modal" style="max-width:420px">
-    <div class="modal-hdr">
-      <h3>Resolver solicitud</h3>
-      <button class="mclose" onclick="closeCloseModal()">×</button>
-    </div>
+    <div class="modal-hdr"><h3>Resolver solicitud</h3><button class="mclose" onclick="closeResolve()">×</button></div>
     <div class="modal-body">
-      <div class="field">
-        <label>Resumen de la solución *</label>
-        <textarea id="close-summary" placeholder="Describe qué se hizo para resolver la solicitud…"></textarea>
+      <div class="field"><label>Resumen de la solución *</label><textarea id="resolve-summary" placeholder="Describe qué se hizo para resolver la solicitud…"></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeResolve()">Cancelar</button>
+      <button class="btn btn-green" onclick="submitResolve()">✓ Marcar como resuelta</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Create User -->
+<div class="overlay" id="modal-create-user" style="display:none" onclick="if(event.target===this)closeCreateUser()">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-hdr"><h3>Crear usuario</h3><button class="mclose" onclick="closeCreateUser()">×</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="field"><label>Nombre completo *</label><input type="text" id="cu-name" placeholder="Nombre completo"></div>
+        <div class="field"><label>Empresa / Área</label><input type="text" id="cu-company" placeholder="Ej. TOUS / Mantenimiento"></div>
+      </div>
+      <div class="field"><label>Correo electrónico *</label><input type="email" id="cu-email" placeholder="correo@empresa.com"></div>
+      <div class="field"><label>Contraseña temporal *</label><input type="password" id="cu-pass" placeholder="Mínimo 6 caracteres"></div>
+      <div class="field"><label>Rol *</label>
+        <select id="cu-role">
+          <option value="client">Cliente (empresa externa)</option>
+          <option value="operator">Operador (área interna Secavi)</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </div>
+      <div id="cu-err" class="err" style="display:none"></div>
+      <div style="background:var(--s2);border:1px solid var(--border2);border-radius:8px;padding:12px;font-size:12px;color:var(--tdim);line-height:1.6">
+        💡 El usuario recibirá sus credenciales y podrá iniciar sesión de inmediato. Puedes cambiar el rol o eliminarlo después.
       </div>
     </div>
     <div class="modal-foot">
-      <button class="btn btn-ghost" onclick="closeCloseModal()">Cancelar</button>
-      <button class="btn btn-red" onclick="submitClose()">Marcar como resuelta</button>
+      <button class="btn btn-ghost" onclick="closeCreateUser()">Cancelar</button>
+      <button class="btn btn-red" id="cu-btn" onclick="submitCreateUser()">Crear usuario</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Comment Attachment -->
+<div class="overlay" id="modal-comment-attach" style="display:none" onclick="if(event.target===this)document.getElementById('modal-comment-attach').style.display='none'">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-hdr"><h3>Adjuntar archivo al mensaje</h3><button class="mclose" onclick="document.getElementById('modal-comment-attach').style.display='none'">×</button></div>
+    <div class="modal-body">
+      <div class="upload-zone">
+        <input type="file" id="comment-attach-file" accept="image/*,.pdf" onchange="uploadCommentAttachment(this)">
+        <div style="font-size:24px;margin-bottom:6px">📎</div>
+        <p>Selecciona un archivo para adjuntar</p>
+      </div>
+      <div id="comment-attach-preview"></div>
     </div>
   </div>
 </div>
@@ -526,666 +477,593 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 <script>
 const SUPABASE_URL  = 'https://plkyvqvqwhvlembqtxzi.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3l2cXZxd2h2bGVtYnF0eHppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI1MTk1MDQsImV4cCI6MjA5ODA5NTUwNH0.-eqzq33FY-8-HZayAGequuBX4o7Pl4bDojiKRfy01J0';
-
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON);
 
-let currentUser = null, currentProfile = null;
-let allTickets = [], currentFilter = 'all', currentTicket = null, assigningId = null;
+let currentUser=null, currentProfile=null, allTickets=[], currentFilter='all', currentTicket=null, assigningId=null;
 
-const SVC = {
-  mantenimiento_preventivo: { icon:'🔧', label:'Mtto. Preventivo' },
-  mantenimiento_correctivo:  { icon:'🛠️', label:'Mtto. Correctivo' },
-  grabaciones:               { icon:'📹', label:'Grabaciones' },
-  guardias_nocturnos:        { icon:'🌙', label:'Guardias Nocturnos' },
-  arreglo_equipos:           { icon:'⚙️',  label:'Arreglo Equipos' },
-  suministro_equipos:        { icon:'📦', label:'Suministro Equipos' },
+const SVC={
+  mantenimiento_preventivo:{icon:'🔧',label:'Mtto. Preventivo'},
+  mantenimiento_correctivo:{icon:'🛠️',label:'Mtto. Correctivo'},
+  grabaciones:{icon:'📹',label:'Grabaciones'},
+  guardias_nocturnos:{icon:'🌙',label:'Guardias Nocturnos'},
+  arreglo_equipos:{icon:'⚙️',label:'Arreglo Equipos'},
+  suministro_equipos:{icon:'📦',label:'Suministro Equipos'},
 };
-
-const STS = {
-  nueva:       { label:'Nueva',       cls:'b-nueva' },
-  en_revision: { label:'En revisión', cls:'b-revision' },
-  en_proceso:  { label:'En proceso',  cls:'b-proceso' },
-  resuelta:    { label:'Resuelta',    cls:'b-resuelta' },
-  cancelada:   { label:'Cancelada',   cls:'b-cancelada' },
+const STS={
+  nueva:{label:'Nueva',cls:'b-nueva'},
+  en_revision:{label:'En revisión',cls:'b-revision'},
+  en_proceso:{label:'En proceso',cls:'b-proceso'},
+  resuelta:{label:'Resuelta',cls:'b-resuelta'},
+  cancelada:{label:'Cancelada',cls:'b-cancelada'},
 };
-
-const STATUS_ORDER = ['nueva','en_revision','en_proceso','resuelta'];
 
 // ── INIT ──
-async function init() {
-  const { data:{ session } } = await db.auth.getSession();
-  if (session) { currentUser = session.user; await loadProfile(); showApp(); }
-  document.getElementById('auth-btn').addEventListener('click', login);
-  ['auth-email','auth-pass'].forEach(id => {
-    document.getElementById(id).addEventListener('keydown', e => { if(e.key==='Enter') login(); });
-  });
+async function init(){
+  const {data:{session}}=await db.auth.getSession();
+  if(session){currentUser=session.user;await loadProfile();showApp();}
+  document.getElementById('auth-btn').addEventListener('click',login);
+  ['auth-email','auth-pass'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')login();}));
 }
 
 // ── AUTH ──
-async function login() {
-  const email = document.getElementById('auth-email').value.trim();
-  const pass  = document.getElementById('auth-pass').value;
-  const errEl = document.getElementById('auth-err');
-  const btn   = document.getElementById('auth-btn');
-  if (!email || !pass) { showErr(errEl,'Completa todos los campos.'); return; }
-  btn.textContent = 'Entrando…'; btn.disabled = true;
-  const { data, error } = await db.auth.signInWithPassword({ email, password: pass });
-  btn.textContent = 'Entrar'; btn.disabled = false;
-  if (error) { showErr(errEl,'Credenciales incorrectas.'); return; }
-  currentUser = data.user;
-  await loadProfile();
-  showApp();
+async function login(){
+  const email=document.getElementById('auth-email').value.trim();
+  const pass=document.getElementById('auth-pass').value;
+  const errEl=document.getElementById('auth-err');
+  const btn=document.getElementById('auth-btn');
+  if(!email||!pass){showErr(errEl,'Completa todos los campos.');return;}
+  btn.textContent='Entrando…';btn.disabled=true;
+  const {data,error}=await db.auth.signInWithPassword({email,password:pass});
+  btn.textContent='Entrar';btn.disabled=false;
+  if(error){showErr(errEl,'Credenciales incorrectas.');return;}
+  currentUser=data.user;await loadProfile();showApp();
+}
+async function logout(){await db.auth.signOut();location.reload();}
+async function loadProfile(){
+  const {data}=await db.from('profiles').select('*').eq('id',currentUser.id).single();
+  currentProfile=data;
 }
 
-async function logout() { await db.auth.signOut(); location.reload(); }
-
-async function loadProfile() {
-  const { data } = await db.from('profiles').select('*').eq('id', currentUser.id).single();
-  currentProfile = data;
+function showApp(){
+  document.getElementById('auth-screen').style.display='none';
+  document.getElementById('app').style.display='flex';
+  const name=currentProfile?.full_name||currentUser.email.split('@')[0];
+  const role=currentProfile?.role||'client';
+  document.getElementById('sb-name').textContent=name;
+  document.getElementById('sb-role').textContent=roleLabel(role);
+  document.getElementById('sb-avatar').textContent=name.charAt(0).toUpperCase();
+  document.getElementById('new-ticket-btn').style.display='none';
+  document.getElementById('admin-nav').style.display='none';
+  document.getElementById('filter-area').style.display='none';
+  if(role==='client'){document.getElementById('new-ticket-btn').style.display='flex';}
+  else{document.getElementById('admin-nav').style.display='block';document.getElementById('filter-area').style.display='block';}
+  loadTickets();loadNotifications();
+  db.channel('tkt').on('postgres_changes',{event:'*',schema:'public',table:'tickets'},()=>loadTickets()).subscribe();
+  db.channel('notif').on('postgres_changes',{event:'*',schema:'public',table:'notifications'},()=>loadNotifications()).subscribe();
 }
 
-function showApp() {
-  document.getElementById('auth-screen').style.display = 'none';
-  document.getElementById('app').style.display = 'flex';
-
-  const name = currentProfile?.full_name || currentUser.email.split('@')[0];
-  const role = currentProfile?.role || 'client';
-
-  document.getElementById('sb-name').textContent = name;
-  document.getElementById('sb-role').textContent = roleLabel(role);
-  document.getElementById('sb-avatar').textContent = name.charAt(0).toUpperCase();
-
-  document.getElementById('new-ticket-btn').style.display = 'none';
-  document.getElementById('admin-nav').style.display = 'none';
-  document.getElementById('filter-area').style.display = 'none';
-
-  if (role === 'client') {
-    document.getElementById('new-ticket-btn').style.display = 'flex';
-  } else {
-    document.getElementById('admin-nav').style.display = 'block';
-    document.getElementById('filter-area').style.display = 'block';
-  }
-
-  loadTickets();
-  loadNotifications();
-
-  // realtime
-  db.channel('tkt').on('postgres_changes',{event:'*',schema:'public',table:'tickets'},() => loadTickets()).subscribe();
-  db.channel('notif').on('postgres_changes',{event:'*',schema:'public',table:'notifications'},() => loadNotifications()).subscribe();
-}
-
-function roleLabel(r) {
-  const co = currentProfile?.company || '';
-  return { client:`Cliente · ${co}`, admin:'Administrador · Secavi', operator:'Operador · Secavi' }[r] || r;
+function roleLabel(r){
+  const co=currentProfile?.company||'';
+  return{client:`Cliente · ${co}`,admin:'Administrador · Secavi',operator:'Operador · Secavi'}[r]||r;
 }
 
 // ── NAV ──
-const TITLES = { tickets:'Solicitudes', detail:'Detalle de Solicitud', notifications:'Notificaciones', stats:'Estadísticas', users:'Usuarios' };
-function navTo(panel) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+const TITLES={tickets:'Solicitudes',detail:'Detalle de Solicitud',notifications:'Notificaciones',stats:'Estadísticas',users:'Gestión de Usuarios'};
+function navTo(panel){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('panel-'+panel).classList.add('active');
-  const el = document.querySelector(`[data-panel="${panel}"]`);
-  if (el) el.classList.add('active');
-  document.getElementById('topbar-title').textContent = TITLES[panel] || '';
-  if (panel==='stats') loadStats();
-  if (panel==='users') loadUsers();
+  const el=document.querySelector(`[data-panel="${panel}"]`);
+  if(el)el.classList.add('active');
+  document.getElementById('topbar-title').textContent=TITLES[panel]||'';
+  if(panel==='stats')loadStats();
+  if(panel==='users')loadUsers();
 }
 
 // ── TICKETS ──
-async function loadTickets() {
-  let q = db.from('tickets').select('*').order('created_at',{ascending:false});
-  if (currentProfile?.role === 'client') q = q.eq('client_id', currentUser.id);
-  const { data } = await q;
-  allTickets = data || [];
-
-  // client hero
-  const role = currentProfile?.role || 'client';
-  const heroWrap = document.getElementById('client-hero-wrap');
-  if (role === 'client') {
-    const total = allTickets.length;
-    const abiertas = allTickets.filter(t => t.status !== 'resuelta' && t.status !== 'cancelada').length;
-    const resueltas = allTickets.filter(t => t.status === 'resuelta').length;
-    const name = (currentProfile?.full_name || '').split(' ')[0];
-    heroWrap.innerHTML = `
-      <div class="client-hero">
-        <div class="client-hero-text">
-          <h2>Bienvenido, ${esc(name)} 👋</h2>
-          <p>Aquí puedes crear y dar seguimiento a todas tus solicitudes de seguridad con SECAVI.</p>
-        </div>
-        <div class="client-stats">
-          <div class="cstat"><div class="cstat-num">${total}</div><div class="cstat-lbl">Total</div></div>
-          <div class="cstat"><div class="cstat-num" style="color:#d4a832">${abiertas}</div><div class="cstat-lbl">Abiertas</div></div>
-          <div class="cstat"><div class="cstat-num" style="color:#3dbc78">${resueltas}</div><div class="cstat-lbl">Resueltas</div></div>
-        </div>
-      </div>`;
-  } else {
-    heroWrap.innerHTML = '';
-  }
-
-  renderTickets();
-  updateBadge();
+async function loadTickets(){
+  let q=db.from('tickets').select('*').order('created_at',{ascending:false});
+  if(currentProfile?.role==='client')q=q.eq('client_id',currentUser.id);
+  const {data}=await q;
+  allTickets=data||[];
+  const role=currentProfile?.role||'client';
+  const heroWrap=document.getElementById('client-hero-wrap');
+  if(role==='client'){
+    const total=allTickets.length;
+    const abiertas=allTickets.filter(t=>t.status!=='resuelta'&&t.status!=='cancelada').length;
+    const resueltas=allTickets.filter(t=>t.status==='resuelta').length;
+    const name=(currentProfile?.full_name||'').split(' ')[0];
+    heroWrap.innerHTML=`<div class="client-hero">
+      <div><h2>Hola, ${esc(name)} 👋</h2><p>Crea y da seguimiento a tus solicitudes de seguridad con SECAVI.</p></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div class="cstat"><div class="cstat-num">${total}</div><div class="cstat-lbl">Total</div></div>
+        <div class="cstat"><div class="cstat-num" style="color:#d4a832">${abiertas}</div><div class="cstat-lbl">Abiertas</div></div>
+        <div class="cstat"><div class="cstat-num" style="color:#3dbc78">${resueltas}</div><div class="cstat-lbl">Resueltas</div></div>
+      </div></div>`;
+  }else{heroWrap.innerHTML='';}
+  renderTickets();updateBadge();
 }
 
-function updateBadge() {
-  const n = allTickets.filter(t => t.status==='nueva').length;
-  const el = document.getElementById('badge-pend');
-  if (n > 0) { el.textContent = n; el.style.display = ''; } else el.style.display = 'none';
+function updateBadge(){
+  const n=allTickets.filter(t=>t.status==='nueva').length;
+  const el=document.getElementById('badge-pend');
+  if(n>0){el.textContent=n;el.style.display='';}else el.style.display='none';
 }
 
-function filterStatus(s, btn) {
-  currentFilter = s;
-  document.querySelectorAll('.fchip').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
-  renderTickets();
+function filterStatus(s,btn){
+  currentFilter=s;
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');renderTickets();
 }
 
-function renderTickets() {
-  const search = document.getElementById('search-input').value.toLowerCase();
-  const area   = document.getElementById('filter-area').value;
-  let list = allTickets;
-  if (currentFilter !== 'all') list = list.filter(t => t.status === currentFilter);
-  if (area) list = list.filter(t => t.assigned_area === area);
-  if (search) list = list.filter(t =>
-    (t.title||'').toLowerCase().includes(search) ||
-    (t.ticket_number||'').toLowerCase().includes(search) ||
-    (t.location||'').toLowerCase().includes(search) ||
-    (t.client_company||'').toLowerCase().includes(search)
-  );
-
-  const role = currentProfile?.role || 'client';
-  const w = document.getElementById('tickets-wrap');
-
-  if (!list.length) {
-    w.innerHTML = `<div class="empty"><div class="eicon">📋</div><p>No hay solicitudes${currentFilter!=='all'?' con este estado':''}</p></div>`;
-    return;
-  }
-
-  w.innerHTML = `
-    <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-      <table class="tbl">
-        <thead><tr>
-          <th>N° / Tipo</th>
-          <th>Asunto</th>
-          ${role !== 'client' ? '<th>Cliente</th>' : ''}
-          <th>Ubicación</th>
-          <th>Estado</th>
-          <th>Prioridad</th>
-          ${role !== 'client' ? '<th>Área</th>' : ''}
-          <th>Fecha</th>
-        </tr></thead>
-        <tbody>
-          ${list.map(t => {
-            const svc = SVC[t.service_type] || { icon:'📋', label: t.service_type };
-            const sts = STS[t.status] || { label: t.status, cls:'b-nueva' };
-            const pri = t.priority || 'media';
-            return `<tr onclick="openDetail('${t.id}')">
-              <td>
-                <div class="tid">#${t.ticket_number || t.id.slice(0,6).toUpperCase()}</div>
-                <div class="tmeta">${svc.icon} ${svc.label}</div>
-              </td>
-              <td>
-                <div class="ttitle">${esc(t.title)}</div>
-                <div class="tmeta">${t.assigned_to ? '→ ' + esc(t.assigned_to) : '<span style="color:var(--tmuted)">Sin asignar</span>'}</div>
-              </td>
-              ${role !== 'client' ? `<td style="color:var(--tdim);font-size:12px">${esc(t.client_company||'—')}</td>` : ''}
-              <td style="color:var(--tdim);font-size:12px">${esc(t.location||'—')}</td>
-              <td><span class="badge ${sts.cls}">${sts.label}</span></td>
-              <td><span class="ptag-${pri}">${cap(pri)}</span></td>
-              ${role !== 'client' ? `<td style="color:var(--tdim);font-size:12px">${t.assigned_area ? '🏢 '+cap(t.assigned_area) : '—'}</td>` : ''}
-              <td style="color:var(--tmuted);font-size:11px">${fmtDate(t.created_at)}</td>
-            </tr>`;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>`;
+function renderTickets(){
+  const search=document.getElementById('search-input').value.toLowerCase();
+  const area=document.getElementById('filter-area').value;
+  let list=allTickets;
+  if(currentFilter!=='all')list=list.filter(t=>t.status===currentFilter);
+  if(area)list=list.filter(t=>t.assigned_area===area);
+  if(search)list=list.filter(t=>(t.title||'').toLowerCase().includes(search)||(t.ticket_number||'').toLowerCase().includes(search)||(t.location||'').toLowerCase().includes(search)||(t.client_company||'').toLowerCase().includes(search));
+  const role=currentProfile?.role||'client';
+  const w=document.getElementById('tickets-wrap');
+  if(!list.length){w.innerHTML=`<div class="empty"><div class="eicon">📋</div><p>No hay solicitudes${currentFilter!=='all'?' con este estado':''}</p></div>`;return;}
+  w.innerHTML=`<div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+    <table class="tbl"><thead><tr>
+      <th>N° / Tipo</th><th>Asunto</th>
+      ${role!=='client'?'<th>Cliente</th>':''}
+      <th>Ubicación</th><th>Estado</th><th>Prioridad</th>
+      ${role!=='client'?'<th>Área</th>':''}
+      <th>Fecha</th>
+    </tr></thead><tbody>
+    ${list.map(t=>{
+      const svc=SVC[t.service_type]||{icon:'📋',label:t.service_type};
+      const sts=STS[t.status]||{label:t.status,cls:'b-nueva'};
+      const pri=t.priority||'media';
+      return`<tr onclick="openDetail('${t.id}')">
+        <td><div class="tid">#${t.ticket_number||t.id.slice(0,6).toUpperCase()}</div><div class="tmeta">${svc.icon} ${svc.label}</div></td>
+        <td><div class="ttitle">${esc(t.title)}</div><div class="tmeta">${t.assigned_to?'→ '+esc(t.assigned_to):'<span style="color:var(--tmuted)">Sin asignar</span>'}</div></td>
+        ${role!=='client'?`<td style="color:var(--tdim);font-size:12px">${esc(t.client_company||'—')}</td>`:''}
+        <td style="color:var(--tdim);font-size:12px">${esc(t.location||'—')}</td>
+        <td><span class="badge ${sts.cls}">${sts.label}</span></td>
+        <td><span class="ptag-${pri}">${cap(pri)}</span></td>
+        ${role!=='client'?`<td style="color:var(--tdim);font-size:12px">${t.assigned_area?'🏢 '+cap(t.assigned_area):'—'}</td>`:''}
+        <td style="color:var(--tmuted);font-size:11px">${fmtDate(t.created_at)}</td>
+      </tr>`;
+    }).join('')}
+    </tbody></table></div>`;
 }
 
 // ── DETAIL ──
-async function openDetail(id) {
+async function openDetail(id){
   navTo('detail');
-  const ticket = allTickets.find(t => t.id === id);
-  if (!ticket) return;
-  currentTicket = ticket;
-
-  const [{ data: comments }, { data: history }] = await Promise.all([
-    db.from('ticket_comments').select('*').eq('ticket_id', id).order('created_at'),
-    db.from('ticket_history').select('*').eq('ticket_id', id).order('created_at'),
+  const ticket=allTickets.find(t=>t.id===id);
+  if(!ticket)return;
+  currentTicket=ticket;
+  const [{data:comments},{data:history},{data:attachments}]=await Promise.all([
+    db.from('ticket_comments').select('*').eq('ticket_id',id).order('created_at'),
+    db.from('ticket_history').select('*').eq('ticket_id',id).order('created_at'),
+    db.from('ticket_attachments').select('*').eq('ticket_id',id).order('created_at'),
   ]);
+  const svc=SVC[ticket.service_type]||{icon:'📋',label:ticket.service_type};
+  const sts=STS[ticket.status]||{label:ticket.status,cls:'b-nueva'};
+  const role=currentProfile?.role||'client';
+  const pri=ticket.priority||'media';
 
-  const svc  = SVC[ticket.service_type] || { icon:'📋', label: ticket.service_type };
-  const sts  = STS[ticket.status] || { label: ticket.status, cls:'b-nueva' };
-  const role = currentProfile?.role || 'client';
-  const pri  = ticket.priority || 'media';
+  // progress
+  const steps=['nueva','en_revision','en_proceso','resuelta'];
+  const stepLabels=['Recibida','En revisión','En proceso','Resuelta'];
+  const curIdx=steps.indexOf(ticket.status);
+  const progressHTML=`<div class="card-title">Estado de tu solicitud</div>
+    <div class="progress-track">${steps.map((s,i)=>{
+      const done=(ticket.status==='resuelta'&&i<=3)||(i<curIdx);
+      const current=i===curIdx&&ticket.status!=='resuelta';
+      return`<div class="pstep ${done?'done':''} ${current?'current':''}">
+        <div class="pdot-track">${done?'✓':current?'●':''}</div>
+        <div class="pstep-label">${stepLabels[i]}</div>
+      </div>`;
+    }).join('')}</div>
+    ${ticket.eta?`<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--tdim)">📅 Fecha estimada de resolución: <strong style="color:var(--text)">${ticket.eta}</strong></div>`:''}
+    ${ticket.assigned_area?`<div style="margin-top:6px;font-size:12px;color:var(--tdim)">Área asignada: <strong style="color:var(--text)">${cap(ticket.assigned_area)}</strong>${ticket.assigned_to?' · '+esc(ticket.assigned_to):''}</div>`:''}`;
 
-  // progress bar
-  const steps = ['nueva','en_revision','en_proceso','resuelta'];
-  const stepLabels = ['Recibida','En revisión','En proceso','Resuelta'];
-  const curIdx = steps.indexOf(ticket.status);
-  const progressHTML = `
-    <div style="margin-bottom:8px">
-      <div class="card-title">Progreso de tu solicitud</div>
-      <div class="progress-track">
-        ${steps.map((s,i) => {
-          const done = i < curIdx || (ticket.status==='resuelta' && i===3);
-          const current = i === curIdx && ticket.status !== 'resuelta';
-          const check = done ? '✓' : (current ? '●' : '');
-          return `<div class="pstep ${done?'done':''} ${current?'current':''}">
-            <div class="pdot-track">${check}</div>
-            <div class="pstep-label">${stepLabels[i]}</div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>`;
+  // attachments display
+  const attachHTML=(attachments||[]).length?`
+    <div class="card-title" style="margin-top:14px">Archivos adjuntos</div>
+    <div class="attach-list">${(attachments||[]).map(a=>`
+      <a href="${a.file_url}" target="_blank" style="text-decoration:none">
+        <div class="attach-item">
+          <span class="attach-icon">${fileIcon(a.file_type)}</span>
+          <span class="attach-name">${esc(a.file_name)}</span>
+          <span style="font-size:11px;color:var(--tdim)">↗</span>
+        </div>
+      </a>`).join('')}
+    </div>`:'' ;
 
-  const commentsHTML = `
-    <div class="comment-wrap">
-      <div class="comments" id="comments-list" style="display:flex;flex-direction:column">
-        ${!(comments||[]).length
-          ? '<p style="font-size:12px;color:var(--tmuted);text-align:center;padding:12px 0">Sin comentarios aún.</p>'
-          : (comments||[]).map(c => {
-            const isSecavi = c.is_secavi;
-            return `<div class="cmsg ${isSecavi?'from-secavi':'from-client'}">
-              <div class="cmsg-author">${esc(c.author_name||'Usuario')} ${isSecavi?'· SECAVI':''}</div>
-              <div class="cmsg-text">${esc(c.content)}</div>
-              <div class="cmsg-time">${fmtDate(c.created_at)}</div>
-            </div>`;
-          }).join('')}
-      </div>
-      <div class="comment-input-row">
-        <input type="text" id="comment-input" placeholder="Escribe un mensaje…" onkeydown="if(event.key==='Enter')sendComment()">
-        <button class="btn btn-red btn-sm" onclick="sendComment()">Enviar</button>
-      </div>
-    </div>`;
+  // comments
+  const commentsHTML=`<div class="comments" id="comments-list" style="display:flex;flex-direction:column">
+    ${!(comments||[]).length?'<p style="font-size:12px;color:var(--tmuted);text-align:center;padding:12px 0">Sin mensajes aún. Escribe el primero.</p>':
+    (comments||[]).map(c=>{
+      const isSecavi=c.is_secavi;
+      const hasAttach=c.attach_url;
+      return`<div class="cmsg ${isSecavi?'from-secavi':'from-client'}">
+        <div class="cmsg-author">${esc(c.author_name||'Usuario')}${isSecavi?' · SECAVI':''}</div>
+        ${c.content?`<div class="cmsg-text">${esc(c.content)}</div>`:''}
+        ${hasAttach?`<a href="${c.attach_url}" target="_blank" style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;color:var(--red);text-decoration:none">📎 ${esc(c.attach_name||'Archivo adjunto')} ↗</a>`:''}
+        <div class="cmsg-time">${fmtDate(c.created_at)}</div>
+      </div>`;
+    }).join('')}
+  </div>
+  <div class="comment-input-row">
+    <input type="text" id="comment-input" placeholder="Escribe un mensaje…" onkeydown="if(event.key==='Enter')sendComment()">
+    <button class="btn btn-ghost btn-sm" onclick="document.getElementById('modal-comment-attach').style.display='flex'" title="Adjuntar archivo">📎</button>
+    <button class="btn btn-red btn-sm" onclick="sendComment()">Enviar</button>
+  </div>`;
 
-  const timelineHTML = `
-    <div class="timeline">
-      ${!(history||[]).length
-        ? '<p style="font-size:12px;color:var(--tmuted)">Sin historial.</p>'
-        : (history||[]).map((h,i) => `
-          <div class="tl-item">
-            <div class="tl-left"><div class="tl-dot ${i===0?'':'dim'}"></div><div class="tl-line"></div></div>
-            <div>
-              <div class="tl-action">${esc(h.action)}</div>
-              <div class="tl-by">${fmtDate(h.created_at)}</div>
-            </div>
-          </div>`).join('')}
-    </div>`;
+  // timeline
+  const timelineHTML=`<div class="timeline">${!(history||[]).length?'<p style="font-size:12px;color:var(--tmuted)">Sin historial.</p>':
+    (history||[]).map((h,i)=>`<div class="tl-item">
+      <div class="tl-left"><div class="tl-dot ${i===0?'':'dim'}"></div><div class="tl-line"></div></div>
+      <div><div class="tl-action">${esc(h.action)}</div><div class="tl-by">${fmtDate(h.created_at)}</div></div>
+    </div>`).join('')}
+  </div>`;
 
-  const adminRightPanel = (role === 'admin' || role === 'operator') ? `
+  const adminRight=(role==='admin'||role==='operator')?`
     <div style="display:flex;flex-direction:column;gap:16px">
       <div class="card">
         <div class="card-title">Cambiar estado</div>
-        ${['nueva','en_revision','en_proceso','resuelta','cancelada'].map(s => {
-          const sl = STS[s];
-          return `<div class="sstep ${ticket.status===s?'current':''}" onclick="changeStatus('${s}')">
-            <span class="sstep-dot" style="background:${sColor(s)}"></span>${sl.label}
-          </div>`;
-        }).join('')}
-        ${ticket.status !== 'resuelta' && ticket.status !== 'cancelada'
-          ? `<div style="margin-top:10px"><button class="btn btn-red btn-sm" style="width:100%;justify-content:center" onclick="openCloseModal()">✓ Marcar como resuelta</button></div>` : ''}
+        ${['nueva','en_revision','en_proceso','resuelta','cancelada'].map(s=>`
+          <div class="sstep ${ticket.status===s?'current':''}" onclick="changeStatus('${s}')">
+            <span class="sstep-dot" style="background:${sColor(s)}"></span>${STS[s].label}
+          </div>`).join('')}
+        ${ticket.status!=='resuelta'&&ticket.status!=='cancelada'?`
+          <div style="margin-top:10px"><button class="btn btn-green btn-sm" style="width:100%;justify-content:center" onclick="openResolve()">✓ Resolver</button></div>`:''}
       </div>
-
       <div class="card">
         <div class="card-title">Asignación</div>
-        ${ticket.assigned_area
-          ? `<div style="margin-bottom:10px">
-              <div style="font-size:12px;color:var(--tmuted);margin-bottom:3px">Área</div>
-              <div style="font-size:13px;font-weight:600">${cap(ticket.assigned_area)}</div>
-              ${ticket.assigned_to ? `<div style="font-size:12px;color:var(--tdim);margin-top:4px">→ ${esc(ticket.assigned_to)}</div>` : ''}
-              ${ticket.eta ? `<div style="font-size:12px;color:var(--tdim);margin-top:4px">📅 ETA: ${ticket.eta}</div>` : ''}
-             </div>` 
-          : `<p style="font-size:12px;color:var(--tmuted);margin-bottom:10px">Sin asignar todavía</p>`}
+        ${ticket.assigned_area?`<div style="margin-bottom:10px">
+          <div style="font-size:12px;color:var(--tmuted);margin-bottom:3px">Área</div>
+          <div style="font-size:13px;font-weight:600">${cap(ticket.assigned_area)}</div>
+          ${ticket.assigned_to?`<div style="font-size:12px;color:var(--tdim);margin-top:3px">→ ${esc(ticket.assigned_to)}</div>`:''}
+          ${ticket.eta?`<div style="font-size:12px;color:var(--tdim);margin-top:3px">📅 ETA: ${ticket.eta}</div>`:''}
+        </div>`:'<p style="font-size:12px;color:var(--tmuted);margin-bottom:10px">Sin asignar todavía</p>'}
         <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center" onclick="openAssign('${ticket.id}')">
-          ${ticket.assigned_area ? '↺ Reasignar' : '+ Asignar área'}
+          ${ticket.assigned_area?'↺ Reasignar':'+ Asignar área'}
         </button>
       </div>
+      <div class="card"><div class="card-title">Historial</div>${timelineHTML}</div>
+    </div>`:
+  `<div style="display:flex;flex-direction:column;gap:16px">
+    <div class="card">${progressHTML}</div>
+    <div class="card"><div class="card-title">Historial</div>${timelineHTML}</div>
+  </div>`;
 
-      <div class="card">
-        <div class="card-title">Historial</div>
-        ${timelineHTML}
+  document.getElementById('detail-wrap').innerHTML=`<div>
+    <div class="detail-header">
+      <div class="d-id">
+        <span>#${ticket.ticket_number||ticket.id.slice(0,6).toUpperCase()}</span>
+        <span class="badge ${sts.cls}">${sts.label}</span>
+        <span class="ptag-${pri}">${cap(pri)}</span>
+        <span class="tag">${svc.icon} ${svc.label}</span>
       </div>
-    </div>` : `
-    <div style="display:flex;flex-direction:column;gap:16px">
-      <div class="card">
-        ${progressHTML}
-        ${ticket.eta ? `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--tdim)">📅 Fecha estimada de resolución: <strong style="color:var(--text)">${ticket.eta}</strong></div>` : ''}
-        ${ticket.assigned_area ? `<div style="margin-top:8px;font-size:12px;color:var(--tdim)">Área asignada: <strong style="color:var(--text)">${cap(ticket.assigned_area)}</strong></div>` : ''}
+      <div class="d-title">${esc(ticket.title)}</div>
+      <div class="d-meta">
+        <div class="d-meta-item"><span class="d-meta-label">Ubicación</span><span class="d-meta-value">${esc(ticket.location||'—')}</span></div>
+        <div class="d-meta-item"><span class="d-meta-label">Solicitante</span><span class="d-meta-value">${esc(ticket.client_name||'—')} · ${esc(ticket.client_company||'—')}</span></div>
+        <div class="d-meta-item"><span class="d-meta-label">Creada</span><span class="d-meta-value">${fmtDate(ticket.created_at)}</span></div>
+        ${ticket.required_date?`<div class="d-meta-item"><span class="d-meta-label">Fecha requerida</span><span class="d-meta-value">${ticket.required_date}</span></div>`:''}
+        ${ticket.equipment_count?`<div class="d-meta-item"><span class="d-meta-label">Equipos afectados</span><span class="d-meta-value">${ticket.equipment_count}</span></div>`:''}
       </div>
-      <div class="card">
-        <div class="card-title">Historial</div>
-        ${timelineHTML}
-      </div>
-    </div>`;
-
-  document.getElementById('detail-wrap').innerHTML = `
-    <div>
-      <div class="detail-header">
-        <div class="d-id">
-          <span>#${ticket.ticket_number || ticket.id.slice(0,6).toUpperCase()}</span>
-          <span class="badge ${sts.cls}">${sts.label}</span>
-          <span class="ptag-${pri}">${cap(pri)}</span>
-          <span class="tag">${svc.icon} ${svc.label}</span>
+    </div>
+    <div class="detail-grid">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card">
+          <div class="card-title">Descripción</div>
+          <p style="font-size:13px;color:var(--text);line-height:1.7">${esc(ticket.description)}</p>
+          ${attachHTML}
         </div>
-        <div class="d-title">${esc(ticket.title)}</div>
-        <div class="d-meta">
-          <div class="d-meta-item">
-            <span class="d-meta-label">Ubicación</span>
-            <span class="d-meta-value">${esc(ticket.location||'—')}</span>
-          </div>
-          <div class="d-meta-item">
-            <span class="d-meta-label">Solicitante</span>
-            <span class="d-meta-value">${esc(ticket.client_name||'—')} · ${esc(ticket.client_company||'—')}</span>
-          </div>
-          <div class="d-meta-item">
-            <span class="d-meta-label">Creada</span>
-            <span class="d-meta-value">${fmtDate(ticket.created_at)}</span>
-          </div>
-          ${ticket.required_date ? `<div class="d-meta-item"><span class="d-meta-label">Fecha requerida</span><span class="d-meta-value">${ticket.required_date}</span></div>` : ''}
-          ${ticket.equipment_count ? `<div class="d-meta-item"><span class="d-meta-label">Equipos afectados</span><span class="d-meta-value">${ticket.equipment_count}</span></div>` : ''}
-        </div>
+        <div class="card"><div class="card-title">Mensajes</div>${commentsHTML}</div>
       </div>
-
-      <div class="detail-grid">
-        <div style="display:flex;flex-direction:column;gap:16px">
-          <div class="card">
-            <div class="card-title">Descripción</div>
-            <p style="font-size:13px;color:var(--text);line-height:1.7">${esc(ticket.description)}</p>
-          </div>
-          <div class="card">
-            <div class="card-title">Mensajes</div>
-            ${commentsHTML}
-          </div>
-        </div>
-        ${adminRightPanel}
-      </div>
-    </div>`;
+      ${adminRight}
+    </div>
+  </div>`;
 }
 
-async function sendComment() {
-  const input = document.getElementById('comment-input');
-  const text = input.value.trim();
-  if (!text || !currentTicket) return;
-  const role = currentProfile?.role || 'client';
-  const name = currentProfile?.full_name || currentUser.email;
-  await db.from('ticket_comments').insert({
-    ticket_id:   currentTicket.id,
-    content:     text,
-    author_id:   currentUser.id,
-    author_name: name,
-    is_secavi:   role !== 'client',
-  });
-  // notify the other party
-  const notifyId = role === 'client' ? null : currentTicket.client_id;
-  if (notifyId) {
-    await db.from('notifications').insert({
-      user_id: notifyId,
-      title:   `Nuevo mensaje en #${currentTicket.ticket_number}`,
-      body:    text.slice(0,80),
-      ticket_id: currentTicket.id,
-      read: false,
-    });
+// ── SEND COMMENT ──
+let pendingCommentAttach=null;
+async function sendComment(){
+  const input=document.getElementById('comment-input');
+  const text=input.value.trim();
+  if(!text&&!pendingCommentAttach){return;}
+  const role=currentProfile?.role||'client';
+  const name=currentProfile?.full_name||currentUser.email;
+  const isSecavi=role!=='client';
+  const payload={ticket_id:currentTicket.id,content:text||null,author_id:currentUser.id,author_name:name,is_secavi:isSecavi,attach_url:pendingCommentAttach?.url||null,attach_name:pendingCommentAttach?.name||null};
+  await db.from('ticket_comments').insert(payload);
+  if(!isSecavi){
+    const {data:admins}=await db.from('profiles').select('id').in('role',['admin','operator']);
+    if(admins?.length){
+      await db.from('notifications').insert(admins.map(a=>({user_id:a.id,title:`💬 Mensaje en #${currentTicket.ticket_number}`,body:(text||'Archivo adjunto').slice(0,80),ticket_id:currentTicket.id,read:false})));
+    }
+  }else{
+    await db.from('notifications').insert({user_id:currentTicket.client_id,title:`💬 Mensaje en #${currentTicket.ticket_number}`,body:(text||'Archivo adjunto').slice(0,80),ticket_id:currentTicket.id,read:false});
   }
-  input.value = '';
+  input.value='';pendingCommentAttach=null;
+  document.getElementById('modal-comment-attach').style.display='none';
   await openDetail(currentTicket.id);
 }
 
-async function changeStatus(newStatus) {
-  if (!currentTicket) return;
-  const lbl = STS[newStatus]?.label || newStatus;
-  await db.from('tickets').update({ status: newStatus, updated_at: new Date().toISOString() }).eq('id', currentTicket.id);
-  await db.from('ticket_history').insert({ ticket_id: currentTicket.id, action: `Estado → "${lbl}"`, changed_by: currentUser.id });
-  await db.from('notifications').insert({ user_id: currentTicket.client_id, title: `Actualización #${currentTicket.ticket_number}`, body: `Tu solicitud cambió a: ${lbl}`, ticket_id: currentTicket.id, read: false });
-  showToast(`Estado: ${lbl}`, 'success');
+async function uploadCommentAttachment(input){
+  const file=input.files[0];if(!file)return;
+  const ext=file.name.split('.').pop();
+  const path=`comments/${currentTicket.id}/${Date.now()}.${ext}`;
+  const {error}=await db.storage.from('ticket-files').upload(path,file);
+  if(error){showToast('Error al subir archivo','error');return;}
+  const {data:{publicUrl}}=db.storage.from('ticket-files').getPublicUrl(path);
+  pendingCommentAttach={url:publicUrl,name:file.name};
+  document.getElementById('comment-attach-preview').innerHTML=`<div style="margin-top:10px;font-size:12px;color:var(--green)">✓ ${esc(file.name)} listo para enviar</div>`;
+  showToast('Archivo listo — escribe tu mensaje y envía','success');
+}
+
+// ── STATUS ──
+async function changeStatus(newStatus){
+  if(!currentTicket)return;
+  const lbl=STS[newStatus]?.label||newStatus;
+  await db.from('tickets').update({status:newStatus,updated_at:new Date().toISOString()}).eq('id',currentTicket.id);
+  await db.from('ticket_history').insert({ticket_id:currentTicket.id,action:`Estado → "${lbl}"`,changed_by:currentUser.id});
+  await db.from('notifications').insert({user_id:currentTicket.client_id,title:`Actualización #${currentTicket.ticket_number}`,body:`Tu solicitud cambió a: ${lbl}`,ticket_id:currentTicket.id,read:false});
+  showToast(`Estado: ${lbl}`,'success');
   await loadTickets();
-  currentTicket = allTickets.find(t => t.id === currentTicket.id);
+  currentTicket=allTickets.find(t=>t.id===currentTicket.id);
   await openDetail(currentTicket.id);
 }
 
 // ── NEW TICKET ──
-function openNewTicket() { document.getElementById('modal-new').style.display = 'flex'; }
-function closeNewTicket() {
-  document.getElementById('modal-new').style.display = 'none';
-  ['nt-tipo','nt-titulo','nt-ubicacion','nt-descripcion','nt-fecha','nt-cantidad'].forEach(id => {
-    const el = document.getElementById(id); if (el) el.value = '';
-  });
-  document.getElementById('nt-prioridad').value = 'media';
-  document.getElementById('nt-err').style.display = 'none';
+function openNewTicket(){document.getElementById('modal-new').style.display='flex';}
+function closeNewTicket(){
+  document.getElementById('modal-new').style.display='none';
+  ['nt-tipo','nt-titulo','nt-ubicacion','nt-descripcion','nt-fecha','nt-cantidad'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('nt-prioridad').value='media';
+  document.getElementById('nt-err').style.display='none';
+  document.getElementById('new-file-preview').innerHTML='';
 }
 
-async function submitTicket() {
-  const tipo  = document.getElementById('nt-tipo').value;
-  const titulo= document.getElementById('nt-titulo').value.trim();
-  const ubi   = document.getElementById('nt-ubicacion').value.trim();
-  const desc  = document.getElementById('nt-descripcion').value.trim();
-  const prio  = document.getElementById('nt-prioridad').value;
-  const fecha = document.getElementById('nt-fecha').value;
-  const cant  = document.getElementById('nt-cantidad').value;
-  const errEl = document.getElementById('nt-err');
-  if (!tipo||!titulo||!ubi||!desc) { showErr(errEl,'Completa todos los campos obligatorios (*).'); return; }
-
-  const num = 'TKT-' + Date.now().toString().slice(-6);
-  const { error } = await db.from('tickets').insert({
-    ticket_number:   num,
-    service_type:    tipo,
-    title:           titulo,
-    location:        ubi,
-    description:     desc,
-    priority:        prio,
-    required_date:   fecha || null,
-    equipment_count: cant ? parseInt(cant) : null,
-    status:          'nueva',
-    client_id:       currentUser.id,
-    client_name:     currentProfile?.full_name || currentUser.email,
-    client_company:  currentProfile?.company || 'TOUS',
+function previewFiles(input,previewId){
+  const preview=document.getElementById(previewId);
+  preview.innerHTML='';
+  Array.from(input.files).forEach(f=>{
+    const div=document.createElement('div');div.className='attach-item';
+    div.innerHTML=`<span class="attach-icon">${fileIcon(f.type)}</span><span class="attach-name">${esc(f.name)}</span><span class="attach-size">${fmtSize(f.size)}</span>`;
+    preview.appendChild(div);
   });
-  if (error) { showErr(errEl,'Error al enviar. Intenta de nuevo.'); return; }
+}
 
-  const { data: admins } = await db.from('profiles').select('id').in('role',['admin','operator']);
-  if (admins?.length) {
-    await db.from('notifications').insert(admins.map(a => ({
-      user_id: a.id, title: `🆕 Nueva solicitud ${num}`, body: `${titulo} · ${ubi}`, read: false,
-    })));
+async function submitTicket(){
+  const tipo=document.getElementById('nt-tipo').value;
+  const titulo=document.getElementById('nt-titulo').value.trim();
+  const ubi=document.getElementById('nt-ubicacion').value.trim();
+  const desc=document.getElementById('nt-descripcion').value.trim();
+  const prio=document.getElementById('nt-prioridad').value;
+  const fecha=document.getElementById('nt-fecha').value;
+  const cant=document.getElementById('nt-cantidad').value;
+  const errEl=document.getElementById('nt-err');
+  const btn=document.getElementById('nt-submit-btn');
+  if(!tipo||!titulo||!ubi||!desc){showErr(errEl,'Completa todos los campos obligatorios (*).');return;}
+  btn.textContent='Enviando…';btn.disabled=true;
+  const num='TKT-'+Date.now().toString().slice(-6);
+  const {data:inserted,error}=await db.from('tickets').insert({
+    ticket_number:num,service_type:tipo,title:titulo,location:ubi,description:desc,priority:prio,
+    required_date:fecha||null,equipment_count:cant?parseInt(cant):null,status:'nueva',
+    client_id:currentUser.id,client_name:currentProfile?.full_name||currentUser.email,client_company:currentProfile?.company||'TOUS',
+  }).select().single();
+  btn.textContent='Enviar solicitud';btn.disabled=false;
+  if(error){showErr(errEl,'Error al enviar. Intenta de nuevo.');return;}
+
+  // upload files
+  const filesInput=document.getElementById('nt-files');
+  if(filesInput.files.length&&inserted){
+    for(const file of filesInput.files){
+      const ext=file.name.split('.').pop();
+      const path=`tickets/${inserted.id}/${Date.now()}_${file.name}`;
+      const {error:upErr}=await db.storage.from('ticket-files').upload(path,file);
+      if(!upErr){
+        const {data:{publicUrl}}=db.storage.from('ticket-files').getPublicUrl(path);
+        await db.from('ticket_attachments').insert({ticket_id:inserted.id,uploaded_by:currentUser.id,uploader_name:currentProfile?.full_name||'',file_name:file.name,file_url:publicUrl,file_type:file.type});
+      }
+    }
   }
 
-  closeNewTicket();
-  showToast('Solicitud enviada exitosamente ✓', 'success');
-  loadTickets();
+  // notify admins
+  const {data:admins}=await db.from('profiles').select('id').in('role',['admin','operator']);
+  if(admins?.length){
+    await db.from('notifications').insert(admins.map(a=>({user_id:a.id,title:`🆕 Nueva solicitud ${num}`,body:`${titulo} · ${ubi}`,ticket_id:inserted.id,read:false})));
+  }
+
+  closeNewTicket();showToast('Solicitud enviada ✓','success');loadTickets();
 }
 
 // ── ASSIGN ──
-function openAssign(id) { assigningId = id; document.getElementById('modal-assign').style.display = 'flex'; }
-function closeAssign() { document.getElementById('modal-assign').style.display = 'none'; assigningId = null; }
+function openAssign(id){assigningId=id;document.getElementById('modal-assign').style.display='flex';}
+function closeAssign(){document.getElementById('modal-assign').style.display='none';assigningId=null;}
 
-async function submitAssign() {
-  const area = document.getElementById('assign-area').value;
-  const to   = document.getElementById('assign-to').value.trim();
-  const eta  = document.getElementById('assign-eta').value;
-  const note = document.getElementById('assign-note').value.trim();
-  const errEl= document.getElementById('assign-err');
-  if (!area) { showErr(errEl,'Selecciona el área responsable.'); return; }
-
-  await db.from('tickets').update({
-    assigned_area: area, assigned_to: to||null, eta: eta||null,
-    status: 'en_revision', updated_at: new Date().toISOString(),
-  }).eq('id', assigningId);
-
-  await db.from('ticket_history').insert({
-    ticket_id: assigningId,
-    action: `Asignado → ${cap(area)}${to?' · '+to:''}${eta?' · ETA: '+eta:''}${note?' · '+note:''}`,
-    changed_by: currentUser.id,
-  });
-
-  const tkt = allTickets.find(t => t.id === assigningId);
-  if (tkt?.client_id) {
-    await db.from('notifications').insert({
-      user_id: tkt.client_id,
-      title: `Tu solicitud #${tkt.ticket_number} fue asignada`,
-      body: `El área de ${cap(area)} está trabajando en tu solicitud${eta?' · ETA: '+eta:''}`,
-      ticket_id: assigningId, read: false,
-    });
+async function submitAssign(){
+  const area=document.getElementById('assign-area').value;
+  const to=document.getElementById('assign-to').value.trim();
+  const eta=document.getElementById('assign-eta').value;
+  const note=document.getElementById('assign-note').value.trim();
+  const errEl=document.getElementById('assign-err');
+  if(!area){showErr(errEl,'Selecciona el área responsable.');return;}
+  await db.from('tickets').update({assigned_area:area,assigned_to:to||null,eta:eta||null,status:'en_revision',updated_at:new Date().toISOString()}).eq('id',assigningId);
+  await db.from('ticket_history').insert({ticket_id:assigningId,action:`Asignado → ${cap(area)}${to?' · '+to:''}${eta?' · ETA: '+eta:''}${note?' · '+note:''}`,changed_by:currentUser.id});
+  const tkt=allTickets.find(t=>t.id===assigningId);
+  if(tkt?.client_id){
+    await db.from('notifications').insert({user_id:tkt.client_id,title:`Tu solicitud #${tkt.ticket_number} fue asignada`,body:`El área de ${cap(area)} está atendiendo tu solicitud${eta?' · ETA: '+eta:''}`,ticket_id:assigningId,read:false});
   }
-
-  closeAssign();
-  showToast('Solicitud asignada', 'success');
+  closeAssign();showToast('Solicitud asignada','success');
   await loadTickets();
-  if (currentTicket?.id === assigningId) {
-    currentTicket = allTickets.find(t => t.id === assigningId);
-    openDetail(assigningId);
-  }
+  if(currentTicket?.id===assigningId){currentTicket=allTickets.find(t=>t.id===assigningId);openDetail(assigningId);}
 }
 
-// ── CLOSE TICKET ──
-function openCloseModal() { document.getElementById('modal-close-ticket').style.display = 'flex'; }
-function closeCloseModal() { document.getElementById('modal-close-ticket').style.display = 'none'; }
+// ── RESOLVE ──
+function openResolve(){document.getElementById('modal-resolve').style.display='flex';}
+function closeResolve(){document.getElementById('modal-resolve').style.display='none';}
 
-async function submitClose() {
-  const summary = document.getElementById('close-summary').value.trim();
-  if (!summary) { showToast('Escribe un resumen de la solución','error'); return; }
-  if (!currentTicket) return;
-
-  await db.from('tickets').update({ status:'resuelta', updated_at: new Date().toISOString() }).eq('id', currentTicket.id);
-  await db.from('ticket_history').insert({ ticket_id: currentTicket.id, action: `✅ Resuelta: ${summary}`, changed_by: currentUser.id });
-  await db.from('notifications').insert({
-    user_id: currentTicket.client_id,
-    title: `✅ Solicitud #${currentTicket.ticket_number} resuelta`,
-    body: summary.slice(0,100),
-    ticket_id: currentTicket.id, read: false,
-  });
-
-  closeCloseModal();
-  showToast('Solicitud marcada como resuelta ✓','success');
-  await loadTickets();
-  currentTicket = allTickets.find(t => t.id === currentTicket.id);
-  openDetail(currentTicket.id);
+async function submitResolve(){
+  const summary=document.getElementById('resolve-summary').value.trim();
+  if(!summary){showToast('Escribe un resumen de la solución','error');return;}
+  if(!currentTicket)return;
+  await db.from('tickets').update({status:'resuelta',updated_at:new Date().toISOString()}).eq('id',currentTicket.id);
+  await db.from('ticket_history').insert({ticket_id:currentTicket.id,action:`✅ Resuelta: ${summary}`,changed_by:currentUser.id});
+  await db.from('notifications').insert({user_id:currentTicket.client_id,title:`✅ Tu solicitud #${currentTicket.ticket_number} fue resuelta`,body:summary.slice(0,100),ticket_id:currentTicket.id,read:false});
+  closeResolve();showToast('Solicitud resuelta ✓','success');
+  await loadTickets();currentTicket=allTickets.find(t=>t.id===currentTicket.id);openDetail(currentTicket.id);
 }
 
 // ── NOTIFICATIONS ──
-async function loadNotifications() {
-  const { data } = await db.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at',{ascending:false});
-  const unread = (data||[]).filter(n => !n.read).length;
-  const el = document.getElementById('badge-notif');
-  if (unread>0) { el.textContent=unread; el.style.display=''; } else el.style.display='none';
-
-  const c = document.getElementById('notif-wrap');
-  if (!(data||[]).length) { c.innerHTML=`<div class="empty"><div class="eicon">🔔</div><p>Sin notificaciones</p></div>`; return; }
-  c.innerHTML = `
-    <div class="card" style="padding:0;overflow:hidden">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)">
-        <span style="font-size:13px;font-weight:600">${unread} sin leer</span>
-        <button class="btn btn-ghost btn-xs" onclick="markAllRead()">Marcar todo como leído</button>
+async function loadNotifications(){
+  const {data}=await db.from('notifications').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false});
+  const unread=(data||[]).filter(n=>!n.read).length;
+  const el=document.getElementById('badge-notif');
+  if(unread>0){el.textContent=unread;el.style.display='';}else el.style.display='none';
+  const c=document.getElementById('notif-wrap');
+  if(!(data||[]).length){c.innerHTML=`<div class="empty"><div class="eicon">🔔</div><p>Sin notificaciones</p></div>`;return;}
+  c.innerHTML=`<div class="card" style="padding:0;overflow:hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)">
+      <span style="font-size:13px;font-weight:600">${unread} sin leer</span>
+      <button class="btn btn-ghost btn-xs" onclick="markAllRead()">Marcar todo como leído</button>
+    </div>
+    ${data.map(n=>`<div class="notif-item ${n.read?'':'unread'}" onclick="markRead('${n.id}','${n.ticket_id||''}')">
+      <div class="notif-undot ${n.read?'read':''}"></div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:500">${esc(n.title)}</div>
+        <div style="font-size:12px;color:var(--tdim);margin-top:2px">${esc(n.body)}</div>
+        <div style="font-size:11px;color:var(--tmuted);margin-top:4px">${fmtDate(n.created_at)}</div>
       </div>
-      ${data.map(n => `
-        <div class="notif-item ${n.read?'':'unread'}" onclick="markRead('${n.id}','${n.ticket_id||''}')">
-          <div class="notif-undot ${n.read?'read':''}"></div>
-          <div style="flex:1">
-            <div class="notif-title">${esc(n.title)}</div>
-            <div class="notif-body">${esc(n.body)}</div>
-            <div class="notif-time">${fmtDate(n.created_at)}</div>
-          </div>
-        </div>`).join('')}
-    </div>`;
+    </div>`).join('')}
+  </div>`;
 }
 
-async function markRead(id, ticketId) {
-  await db.from('notifications').update({ read:true }).eq('id', id);
-  if (ticketId) { await loadTickets(); openDetail(ticketId); }
-  else loadNotifications();
+async function markRead(id,ticketId){
+  await db.from('notifications').update({read:true}).eq('id',id);
+  if(ticketId){await loadTickets();openDetail(ticketId);}else loadNotifications();
 }
-
-async function markAllRead() {
-  await db.from('notifications').update({ read:true }).eq('user_id', currentUser.id);
+async function markAllRead(){
+  await db.from('notifications').update({read:true}).eq('user_id',currentUser.id);
   loadNotifications();
 }
 
 // ── STATS ──
-async function loadStats() {
-  const { data } = await db.from('tickets').select('status,service_type,priority,created_at,assigned_area,client_company');
-  if (!data) return;
-  const total=data.length, nuevas=data.filter(t=>t.status==='nueva').length,
+async function loadStats(){
+  const {data}=await db.from('tickets').select('status,service_type,priority,assigned_area,client_company');
+  if(!data)return;
+  const total=data.length,nuevas=data.filter(t=>t.status==='nueva').length,
     proceso=data.filter(t=>t.status==='en_proceso').length,
     resueltas=data.filter(t=>t.status==='resuelta').length,
-    alta=data.filter(t=>t.priority==='alta').length;
-
-  const byType={}, byArea={}, byClient={};
-  data.forEach(t => {
-    byType[t.service_type]=(byType[t.service_type]||0)+1;
-    if(t.assigned_area) byArea[t.assigned_area]=(byArea[t.assigned_area]||0)+1;
-    if(t.client_company) byClient[t.client_company]=(byClient[t.client_company]||0)+1;
-  });
-
-  document.getElementById('stats-wrap').innerHTML = `
+    alta=data.filter(t=>t.priority==='alta').length,
+    sin_asignar=data.filter(t=>!t.assigned_area&&t.status!=='resuelta'&&t.status!=='cancelada').length;
+  const byType={},byArea={};
+  data.forEach(t=>{byType[t.service_type]=(byType[t.service_type]||0)+1;if(t.assigned_area)byArea[t.assigned_area]=(byArea[t.assigned_area]||0)+1;});
+  document.getElementById('stats-wrap').innerHTML=`
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-num" style="color:var(--text)">${total}</div><div class="stat-lbl">Total solicitudes</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--text)">${total}</div><div class="stat-lbl">Total</div></div>
       <div class="stat-card"><div class="stat-num" style="color:#5b8def">${nuevas}</div><div class="stat-lbl">Nuevas</div></div>
       <div class="stat-card"><div class="stat-num" style="color:var(--orange)">${proceso}</div><div class="stat-lbl">En proceso</div></div>
       <div class="stat-card"><div class="stat-num" style="color:var(--green)">${resueltas}</div><div class="stat-lbl">Resueltas</div></div>
       <div class="stat-card"><div class="stat-num" style="color:#e05555">${alta}</div><div class="stat-lbl">Alta prioridad</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--yellow)">${sin_asignar}</div><div class="stat-lbl">Sin asignar</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px">
-      <div class="card">
-        <div class="card-title">Por tipo de servicio</div>
-        ${Object.entries(byType).sort((a,b)=>b[1]-a[1]).map(([type,count]) => {
-          const svc=SVC[type]||{icon:'📋',label:type};
-          const pct=total?Math.round((count/total)*100):0;
-          return `<div class="bar-row">
-            <div class="bar-top"><span>${svc.icon} ${svc.label}</span><span style="color:var(--tdim)">${count} (${pct}%)</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div>
-          </div>`;
-        }).join('')}
+      <div class="card"><div class="card-title">Por tipo de servicio</div>
+        ${Object.entries(byType).sort((a,b)=>b[1]-a[1]).map(([type,count])=>{const svc=SVC[type]||{icon:'📋',label:type};const pct=total?Math.round((count/total)*100):0;return`<div class="bar-row"><div class="bar-top"><span>${svc.icon} ${svc.label}</span><span style="color:var(--tdim)">${count} (${pct}%)</span></div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div></div>`;}).join('')}
       </div>
-      <div class="card">
-        <div class="card-title">Por área asignada</div>
-        ${Object.keys(byArea).length===0 ? '<p style="font-size:12px;color:var(--tmuted)">Sin datos aún</p>' :
-          Object.entries(byArea).sort((a,b)=>b[1]-a[1]).map(([area,count]) => {
-            const pct=total?Math.round((count/total)*100):0;
-            return `<div class="bar-row">
-              <div class="bar-top"><span>${cap(area)}</span><span style="color:var(--tdim)">${count} (${pct}%)</span></div>
-              <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div>
-            </div>`;
-          }).join('')}
+      <div class="card"><div class="card-title">Por área asignada</div>
+        ${!Object.keys(byArea).length?'<p style="font-size:12px;color:var(--tmuted)">Sin datos aún</p>':Object.entries(byArea).sort((a,b)=>b[1]-a[1]).map(([area,count])=>{const pct=total?Math.round((count/total)*100):0;return`<div class="bar-row"><div class="bar-top"><span>${cap(area)}</span><span style="color:var(--tdim)">${count} (${pct}%)</span></div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div></div>`;}).join('')}
       </div>
     </div>`;
 }
 
 // ── USERS ──
-async function loadUsers() {
-  const { data } = await db.from('profiles').select('*').order('created_at');
-  const c = document.getElementById('users-wrap');
-  if (!data?.length) { c.innerHTML=`<div class="empty"><div class="eicon">👥</div><p>Sin usuarios</p></div>`; return; }
-  c.innerHTML = `
+async function loadUsers(){
+  const {data}=await db.from('profiles').select('*').order('created_at');
+  const c=document.getElementById('users-wrap');
+  c.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-size:13px;color:var(--tdim)">${(data||[]).length} usuarios registrados</div>
+      <button class="btn btn-red btn-sm" onclick="openCreateUser()">＋ Crear usuario</button>
+    </div>
     <div class="card" style="padding:0;overflow:hidden">
-      <table class="tbl">
-        <thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Empresa</th><th>Registro</th></tr></thead>
-        <tbody>
-          ${data.map(u => `<tr>
-            <td><div style="font-weight:600">${esc(u.full_name||'—')}</div></td>
-            <td style="color:var(--tdim);font-size:12px">${esc(u.email||'—')}</td>
-            <td><span class="badge b-nueva" style="font-size:10px">${roleLabel2(u.role)}</span></td>
-            <td style="color:var(--tdim);font-size:12px">${esc(u.company||'—')}</td>
-            <td style="color:var(--tmuted);font-size:11px">${fmtDate(u.created_at)}</td>
-          </tr>`).join('')}
-        </tbody>
-      </table>
+      ${!(data||[]).length?'<div class="empty"><div class="eicon">👥</div><p>Sin usuarios</p></div>':
+      data.map(u=>`<div class="user-row">
+        <div class="user-row-avatar">${(u.full_name||u.email||'?').charAt(0).toUpperCase()}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600">${esc(u.full_name||'—')}</div>
+          <div style="font-size:11px;color:var(--tdim);margin-top:2px">${esc(u.email||'—')} ${u.company?'· '+esc(u.company):''}</div>
+        </div>
+        <select class="role-select" onchange="updateUserRole('${u.id}',this.value)">
+          <option value="client" ${u.role==='client'?'selected':''}>Cliente</option>
+          <option value="operator" ${u.role==='operator'?'selected':''}>Operador</option>
+          <option value="admin" ${u.role==='admin'?'selected':''}>Admin</option>
+        </select>
+        <button class="btn btn-danger btn-xs" onclick="deleteUser('${u.id}','${esc(u.full_name||u.email)}')">Eliminar</button>
+      </div>`).join('')}
     </div>`;
 }
 
+async function updateUserRole(userId,newRole){
+  const {error}=await db.from('profiles').update({role:newRole}).eq('id',userId);
+  if(error){showToast('Error al actualizar rol','error');return;}
+  showToast('Rol actualizado','success');
+}
+
+async function deleteUser(userId,name){
+  if(!confirm(`¿Eliminar a ${name}? Esta acción no se puede deshacer.`))return;
+  const {error}=await db.from('profiles').delete().eq('id',userId);
+  if(error){showToast('Error al eliminar usuario','error');return;}
+  showToast('Usuario eliminado','success');
+  loadUsers();
+}
+
+function openCreateUser(){document.getElementById('modal-create-user').style.display='flex';}
+function closeCreateUser(){
+  document.getElementById('modal-create-user').style.display='none';
+  ['cu-name','cu-company','cu-email','cu-pass'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cu-role').value='client';
+  document.getElementById('cu-err').style.display='none';
+}
+
+async function submitCreateUser(){
+  const name=document.getElementById('cu-name').value.trim();
+  const company=document.getElementById('cu-company').value.trim();
+  const email=document.getElementById('cu-email').value.trim();
+  const pass=document.getElementById('cu-pass').value;
+  const role=document.getElementById('cu-role').value;
+  const errEl=document.getElementById('cu-err');
+  const btn=document.getElementById('cu-btn');
+  if(!name||!email||!pass){showErr(errEl,'Completa los campos obligatorios.');return;}
+  if(pass.length<6){showErr(errEl,'La contraseña debe tener al menos 6 caracteres.');return;}
+  btn.textContent='Creando…';btn.disabled=true;
+  const {data,error}=await db.auth.signUp({email,password:pass,options:{data:{full_name:name}}});
+  btn.textContent='Crear usuario';btn.disabled=false;
+  if(error){showErr(errEl,error.message);return;}
+  if(data.user){
+    await db.from('profiles').update({full_name:name,company:company||null,role}).eq('id',data.user.id);
+  }
+  closeCreateUser();showToast(`Usuario ${name} creado exitosamente`,'success');loadUsers();
+}
+
 // ── UTILS ──
-function esc(s){ if(!s)return''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function fmtDate(d){ if(!d)return'—'; return new Date(d).toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
-function cap(s){ if(!s)return''; return s.charAt(0).toUpperCase()+s.slice(1).replace(/_/g,' '); }
-function sColor(s){ return{nueva:'#5b8def',en_revision:'#e08a3c',en_proceso:'#d4a832',resuelta:'#3dbc78',cancelada:'#e05555'}[s]||'#6E7A96'; }
-function showErr(el,msg){ el.textContent=msg; el.style.display='block'; }
-function roleLabel2(r){ return{client:'Cliente',admin:'Administrador',operator:'Operador'}[r]||r; }
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fmtDate(d){if(!d)return'—';return new Date(d).toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function cap(s){if(!s)return'';return s.charAt(0).toUpperCase()+s.slice(1).replace(/_/g,' ');}
+function sColor(s){return{nueva:'#5b8def',en_revision:'#e08a3c',en_proceso:'#d4a832',resuelta:'#3dbc78',cancelada:'#e05555'}[s]||'#6E7A96';}
+function showErr(el,msg){el.textContent=msg;el.style.display='block';}
+function fmtSize(b){if(b<1024)return b+'B';if(b<1048576)return(b/1024).toFixed(1)+'KB';return(b/1048576).toFixed(1)+'MB';}
+function fileIcon(type){if(!type)return'📄';if(type.startsWith('image'))return'🖼️';if(type.includes('pdf'))return'📕';if(type.includes('word')||type.includes('doc'))return'📝';return'📎';}
 
 let toastT;
 function showToast(msg,type=''){
   const t=document.getElementById('toast');
-  t.innerHTML=`${type==='success'?'✓':type==='error'?'✕':''} ${msg}`;
+  t.innerHTML=`${type==='success'?'<span style="color:var(--green)">✓</span>':type==='error'?'<span style="color:#e05555">✕</span>':''} ${msg}`;
   t.className='show '+(type||'');
-  clearTimeout(toastT);
-  toastT=setTimeout(()=>{ t.className=''; },3200);
+  clearTimeout(toastT);toastT=setTimeout(()=>{t.className='';},3200);
 }
 
 init();
