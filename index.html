@@ -991,18 +991,28 @@ async function loadUsers(){
     </div>
     <div class="card" style="padding:0;overflow:hidden">
       ${!(data||[]).length?'<div class="empty"><div class="eicon">👥</div><p>Sin usuarios</p></div>':
-      data.map(u=>`<div class="user-row">
-        <div class="user-row-avatar">${(u.full_name||u.email||'?').charAt(0).toUpperCase()}</div>
-        <div style="flex:1;min-width:0">
+      data.map(u=>`<div class="user-row" style="flex-wrap:wrap;gap:10px">
+        <div class="user-row-avatar" style="flex-shrink:0">${(u.full_name||u.email||'?').charAt(0).toUpperCase()}</div>
+        <div style="flex:1;min-width:160px">
           <div style="font-size:13px;font-weight:600">${esc(u.full_name||'—')}</div>
-          <div style="font-size:11px;color:var(--tdim);margin-top:2px">${esc(u.email||'—')} ${u.company?'· '+esc(u.company):''}</div>
+          <div style="font-size:11px;color:var(--tdim);margin-top:2px">${esc(u.email||'—')}</div>
         </div>
-        <select class="role-select" onchange="updateUserRole('${u.id}',this.value)">
-          <option value="client" ${u.role==='client'?'selected':''}>Cliente</option>
-          <option value="operator" ${u.role==='operator'?'selected':''}>Operador</option>
-          <option value="admin" ${u.role==='admin'?'selected':''}>Admin</option>
-        </select>
-        <button class="btn btn-danger btn-xs" onclick="deleteUser('${u.id}','${esc(u.full_name||u.email)}')">Eliminar</button>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+          <input
+            type="text"
+            value="${esc(u.company||'')}"
+            placeholder="Empresa / Área"
+            style="background:var(--s2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:inherit;font-size:12px;padding:4px 10px;outline:none;width:150px"
+            onblur="updateUserCompany('${u.id}',this.value)"
+            onkeydown="if(event.key==='Enter')this.blur()"
+          >
+          <select class="role-select" onchange="updateUserRole('${u.id}',this.value)">
+            <option value="client" ${u.role==='client'?'selected':''}>Cliente</option>
+            <option value="operator" ${u.role==='operator'?'selected':''}>Operador</option>
+            <option value="admin" ${u.role==='admin'?'selected':''}>Admin</option>
+          </select>
+          <button class="btn btn-danger btn-xs" onclick="deleteUser('${u.id}','${esc(u.full_name||u.email)}')">Eliminar</button>
+        </div>
       </div>`).join('')}
     </div>`;
 }
@@ -1011,6 +1021,13 @@ async function updateUserRole(userId,newRole){
   const {error}=await db.from('profiles').update({role:newRole}).eq('id',userId);
   if(error){showToast('Error al actualizar rol','error');return;}
   showToast('Rol actualizado','success');
+}
+
+async function updateUserCompany(userId,company){
+  const val=company.trim();
+  const {error}=await db.from('profiles').update({company:val||null}).eq('id',userId);
+  if(error){showToast('Error al actualizar empresa','error');return;}
+  showToast('Empresa actualizada','success');
 }
 
 async function deleteUser(userId,name){
