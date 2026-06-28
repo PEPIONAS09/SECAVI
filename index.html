@@ -1057,12 +1057,31 @@ async function submitCreateUser(){
   if(!name||!email||!pass){showErr(errEl,'Completa los campos obligatorios.');return;}
   if(pass.length<6){showErr(errEl,'La contraseña debe tener al menos 6 caracteres.');return;}
   btn.textContent='Creando…';btn.disabled=true;
-  const {data,error}=await db.auth.signUp({email,password:pass,options:{data:{full_name:name}}});
+
+  // Use service role to create user without email confirmation
+  const res = await fetch('https://plkyvqvqwhvlembqtxzi.supabase.co/auth/v1/admin/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3l2cXZxd2h2bGVtYnF0eHppIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjUxOTUwNCwiZXhwIjoyMDk4MDk1NTA0fQ.FcwFPOz1YangnO25ZtZJ7Z2s1tXnpAgRdV18W-QiBU0',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3l2cXZxd2h2bGVtYnF0eHppIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjUxOTUwNCwiZXhwIjoyMDk4MDk1NTA0fQ.FcwFPOz1YangnO25ZtZJ7Z2s1tXnpAgRdV18W-QiBU0',
+    },
+    body: JSON.stringify({
+      email,
+      password: pass,
+      email_confirm: true,
+      user_metadata: { full_name: name },
+    }),
+  });
+
+  const json = await res.json();
   btn.textContent='Crear usuario';btn.disabled=false;
-  if(error){showErr(errEl,error.message);return;}
-  if(data.user){
-    await db.from('profiles').update({full_name:name,company:company||null,role}).eq('id',data.user.id);
-  }
+
+  if(!res.ok){showErr(errEl, json.msg || json.error_description || 'Error al crear usuario.');return;}
+
+  // Update profile with role, company, name
+  await db.from('profiles').update({full_name:name,company:company||null,role}).eq('id',json.id);
+
   closeCreateUser();showToast(`Usuario ${name} creado exitosamente`,'success');loadUsers();
 }
 
