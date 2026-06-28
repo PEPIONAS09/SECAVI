@@ -608,7 +608,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 <script>
 const SUPA_URL  = 'https://plkyvqvqwhvlembqtxzi.supabase.co';
 const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3l2cXZxd2h2bGVtYnF0eHppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI1MTk1MDQsImV4cCI6MjA5ODA5NTUwNH0.-eqzq33FY-8-HZayAGequuBX4o7Pl4bDojiKRfy01J0';
-const SUPA_SVC  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3l2cXZxd2h2bGVtYnF0eHppIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjUxOTUwNCwiZXhwIjoyMDk4MDk1NTA0fQ.FcwFPOz1YangnO25ZtZJ7Z2s1tXnpAgRdV18W-QiBU0';
+// Admin actions handled securely via Edge Function
 
 // SLA in days per service type
 const SLA_DAYS = {
@@ -1239,21 +1239,15 @@ async function updateUserCompany(userId,company){
 }
 async function deleteUser(userId,name){
   if(!confirm(`¿Eliminar a ${name}? Esta acción no se puede deshacer.`))return;
-  // Delete from auth.users via Admin API (cascades to profiles automatically)
-  const res = await fetch(`${SUPA_URL}/auth/v1/admin/users/${userId}`,{
-    method:'DELETE',
-    headers:{
-      'apikey': SUPA_SVC,
-      'Authorization': `Bearer ${SUPA_SVC}`,
-    }
+  const {data:{session}}=await db.auth.getSession();
+  const res=await fetch('https://plkyvqvqwhvlembqtxzi.supabase.co/functions/v1/admin-actions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`},
+    body:JSON.stringify({action:'delete_user',payload:{user_id:userId}})
   });
-  if(!res.ok){
-    const json = await res.json().catch(()=>({}));
-    showToast(json.message||'Error al eliminar usuario','error');
-    return;
-  }
-  showToast(`${name} eliminado`,'success');
-  loadUsers();
+  const json=await res.json().catch(()=>({}));
+  if(!res.ok||json.error){showToast(json.error||'Error al eliminar','error');return;}
+  showToast(`${name} eliminado`,'success');loadUsers();
 }
 function openCreateUser(){document.getElementById('modal-create-user').style.display='flex';}
 function closeCreateUser(){
@@ -1273,11 +1267,15 @@ async function submitCreateUser(){
   if(!name||!email||!pass){showErr(errEl,'Completa los campos obligatorios.');return;}
   if(pass.length<6){showErr(errEl,'Mínimo 6 caracteres.');return;}
   btn.textContent='Creando…';btn.disabled=true;
-  const res=await fetch(`${SUPA_URL}/auth/v1/admin/users`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPA_SVC,'Authorization':`Bearer ${SUPA_SVC}`},body:JSON.stringify({email,password:pass,email_confirm:true,user_metadata:{full_name:name}})});
+  const {data:{session}}=await db.auth.getSession();
+  const res=await fetch('https://plkyvqvqwhvlembqtxzi.supabase.co/functions/v1/admin-actions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`},
+    body:JSON.stringify({action:'create_user',payload:{email,password:pass,full_name:name,company:company||null,role}})
+  });
   const json=await res.json();
   btn.textContent='Crear usuario';btn.disabled=false;
-  if(!res.ok){showErr(errEl,json.msg||json.error_description||'Error al crear usuario.');return;}
-  await db.from('profiles').update({full_name:name,company:company||null,role}).eq('id',json.id);
+  if(!res.ok||json.error){showErr(errEl,json.error||'Error al crear usuario.');return;}
   closeCreateUser();showToast(`Usuario ${name} creado`,'success');loadUsers();
 }
 
